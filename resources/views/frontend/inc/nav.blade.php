@@ -79,45 +79,73 @@
                 <a href="#" class="search_toggle" id="search-icon"><i class="tf-ion-android-search"></i></a>
             </li>
             <li class="dropdown cart-nav dropdown-slide list-inline-item">
-                <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
-                    <i class="tf-ion-android-cart"></i>
-                </a>
-                <div class="dropdown-menu cart-dropdown">
-                    <!-- Cart Item -->
-                    <div class="media">
-                        <a href="#">
-                            <img class="media-object img- mr-3" src="images/shop/cart/cart-1.jpg" alt="image">
-                        </a>
-                        <div class="media-body">
-                            <h6>Ladies Bag</h6>
-                            <div class="cart-price">
-                                <span>1 x</span>
-                                <span>1250.00</span>
-                            </div>
-                        </div>
-                        <a href="#" class="remove"><i class="tf-ion-close"></i></a>
-                    </div><!-- / Cart Item -->
-                    <!-- Cart Item -->
-                    <div class="media">
-                        <a href="#">
-                            <img class="media-object img-fluid mr-3" src="images/shop/cart/cart-2.jpg" alt="image">
-                        </a>
-                        <div class="media-body">
-                            <h6>Skinny Jeans</h6>
-                            <div class="cart-price">
-                                <span>1 x</span>
-                                <span>1250.00</span>
-                            </div>
-                        </div>
-                        <a href="#" class="remove"><i class="tf-ion-close"></i></a>
-                    </div><!-- / Cart Item -->
-                    <div class="cart-summary">
-                        <span class="h6">Total</span>
-                        <span class="total-price h6">$1799.00</span>
-                        <div class="text-center cart-buttons mt-3">
-                            <a href="cart.html" class="btn btn-small btn-transparent btn-block">View Cart</a>
-                            <a href="checkout.html" class="btn btn-small btn-main btn-block">Checkout</a>
-                        </div>
+                <div class="nav-cart-box dropdown" id="cart_items">
+                    <a href="" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="tf-ion-android-cart"></i>
+
+                        <!-- <i class="fa fa-shopping-cart text-dark"></i> -->
+                        {{-- <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag"> --}}
+                        {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
+                        @if(Session::has('cart'))
+                        <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
+                        @else
+                        <sup class="nav-box-number">0</sup>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu cart-dropdown">
+                            @if(Session::has('cart'))
+                                @if(count($cart = Session::get('cart')) > 0)
+                                
+                                    @php
+                                        $total = 0;
+                                    @endphp
+                                    @foreach($cart as $key => $cartItem)
+                                        @php
+                                            $product = \App\Product::find($cartItem['id']);
+                                            $total = $total + $cartItem['price']*$cartItem['quantity'];
+                                        @endphp
+                                        <div class="media">
+                                            <a href="{{ route('product', $product->slug) }}">
+                                                @if (!empty($product->thumbnail_img))
+                                                    @if(file_exists($product->thumbnail))
+                                                        <img class="media-object img- mr-3" src="{{asset($product->thumbnail_img)}}" alt="{{$product->name}}">
+                                                    @else
+                                                        <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                                                    @endif
+                                                @else
+                                                    <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                                                @endif
+                                            </a>
+                                            <div class="media-body">
+                                                <h6>{{$product->name}}</h6>
+                                                <div class="cart-price">
+                                                    <span>{{ $cartItem['quantity'] }} x</span>
+                                                    <span>{{ single_price($cartItem['price']) }}</span>
+                                                </div>
+                                            </div>
+                                            <a class="remove" title="Remove" onclick="removeFromCart({{ $key }})" style="cursor: pointer"><i class="tf-ion-close"></i></a>
+                                        </div>
+                                    @endforeach
+                                    <div class="cart-summary">
+                                        <span class="h6">Total</span>
+                                        <span class="total-price h6">{{ single_price($total) }}</span>
+                                        <div class="text-center cart-buttons mt-3">
+                                            <a href="{{ route('cart') }}" class="btn btn-small btn-transparent btn-block">View Cart</a>
+                                            @if (Auth::check())
+                                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-small btn-main btn-block">Checkout</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @else
+                                <div class="media">
+                                    <span class="h6">Your Cart Is Empty</span>
+                                </div>
+                                @endif
+                            @else
+                                <div class="media">
+                                    <span class="h6">Your Cart Is Empty</span>
+                                </div>
+                            @endif
                     </div>
                 </div>
             </li>
@@ -128,15 +156,33 @@
 <!--search overlay start-->
 <div class="search-wrap">
     <div class="overlay">
-        <form action="#" class="search-form">
+        <form action="{{ route('search') }}" method="GET" class="search-form">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-9">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <input class="search_input form-control" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off" />
+                        <button type="submit" class="search_icon d-none"></button>
                     </div>
                     <div class="col-md-2 col-3 text-right">
                         <div class="search_toggle toggle-wrap d-inline-block">
-                            <img class="search-close" src="images/close.png" alt="">
+                            <img class="search-close" src="{{asset('frontend/assets/images/close.png')}}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-light">
+                        <div class="typed-search-box d-none">
+                            <div class="search-preloader">
+                                <div class="loader">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="search-nothing d-none">
+                            </div>
+                            <div id="search-content">
+                            </div>
                         </div>
                     </div>
                 </div>
