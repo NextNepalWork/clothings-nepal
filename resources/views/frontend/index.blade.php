@@ -11,7 +11,7 @@
                         <div class="slider-caption">
                             <span class="lead">Winter Collection Sale </span>
                             <h1 class="mt-2 mb-5"><span class="text-color">70% off </span>to everything</h1>
-                            <a href="shop.html" class="btn btn-main">Shop Now</a>
+                            <a href="{{$slider->link}}" class="btn btn-main">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,22 @@
                             <a href="{{route('product',$product->slug)}}"><img class="img-fluid w-100 mb-3 img-first" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{$product->name}}"></a>
                         @endif
                     </div>
-                    <span class="onsale">Sale</span>
+                    @php
+                        $qty = 0;
+                        if($product->variant_product){
+                            foreach ($product->stocks as $key => $stock) {
+                                $qty += $stock->qty;
+                            }
+                        }
+                        else{
+                            $qty = $product->current_stock ;
+                        }
+                    @endphp
+                    @if($qty > 0)
+                        <span class="onsale">Sale</span>
+                    @else
+                        <span class="offsale">Out Of Stock</span>
+                    @endif
                     <div class="product-hover-overlay">
                         <a  title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
                             <i class="tf-ion-android-cart"></i>
@@ -169,9 +184,14 @@
                                     <div class="special_left">
                                         <a href="{{ route('product', $product->slug) }}">
                                             @if (!empty($product->thumbnail_img))
-                                                <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @if(file_exists($product->thumbnail_img))
+                                                    <img class="img-fluid" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                @else
+                                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" class="img-fluid">
+
+                                                @endif
                                             @else
-                                                <img class="img-fit lazyload" src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" class="img-fluid">
                                             @endif
                                             <h6>{{ __($product->name) }}</h6>
                                         </a>
@@ -279,8 +299,57 @@
 @endsection
 
 @section('script')
-    <script>
+<script>
+    $(document).ready(function(){
+        // flash counter
+        var data=@json($time);
+        var countDownDate = new Date(data).getTime();
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+        // Get today's date and time
+        var now = new Date().getTime();
+        //   alert(countDownDate);
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // console.log(document.getElementsByClassName("demo"));
+        // Output the result in an element with id="demo"
+        $('.demo').text(days + " days : " + hours + " hours : "+ minutes + " minutes : " + seconds + " seconds");
+        //document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+        // If the count down is over, write some text
+        if (distance < 0) {
+        clearInterval(x);
+        $('.demo').text("EXPIRED");
+        //document.getElementsByClassName("demo").innerHTML = "EXPIRED";
+        }
+        }, 1000);
+        // flash counter
+        $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            // console.log(data);
+            $('#section_featured').html(data);
+            slickInit();
+        });
+        $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            $('#section_best_selling').html(data);
+            slickInit();
+        });
+        $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            $('#section_home_categories').html(data);
+            slickInit();
+        });
+        $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            $('#section_best_sellers').html(data);
+            slickInit();
+        });
+    });
+</script>
+    {{-- <script>
         $(document).ready(function(){
+            
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 // console.log(data);
                 $('#section_featured').html(data);
@@ -302,6 +371,6 @@
                 slickInit();
             });
         });
-    </script>
+    </script> --}}
 @endsection
 

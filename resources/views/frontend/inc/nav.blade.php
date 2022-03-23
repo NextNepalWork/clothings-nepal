@@ -19,34 +19,44 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
+                @php
+                    $about=\App\Page::first();
+                @endphp
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About Us</a>
+                    <a class="nav-link" href="{{route('custom-pages.show_custom_page',$about->slug)}}">About Us</a>
                 </li>
                 <!-- Pages -->
                 <li class="nav-item dropdown dropdown-slide">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-delay="350"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pages.
+                        Categories
                     </a>
                     <ul class="dropdown-menu p-0" aria-labelledby="navbarDropdown4">
-                        <li class="dropdown-custom-right"> <a>
-                                Categories
-                            </a>
-                            <ul class="custom-dropdown bg-light">
-                                <li><a href="">Categories 1</a></li>
-                                <li><a href="">Categories 2</a></li>
-                                <li><a href="">Categories 3</a></li>
-                                <li><a href="">Categories 4</a></li>
-                                <li><a href="">Categories 5</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        @foreach (\App\Category::where('featured',1)->get() as $category)
+                            <li class="dropdown-custom-right position-relative"> <a href="{{route('products.category',$category->slug)}}">
+                                    {{$category->name}}
+                                </a>
+                                @if (count($category->subcategories)>0)
+                                    <ul class="custom-dropdown bg-light">
+                                        @foreach ($category->subcategories as $subcat)
+                                            <li class="dropdown-custom-right"><a href="{{route('products.subcategory',$subcat->slug)}}">{{$subcat->name}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>    
                 </li><!-- /Pages -->
-                <!-- / Blog -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('products')}}">Shop</a>
+                </li>
+                {{-- <!-- / Blog -->
                 <li class="nav-item dropdown dropdown-slide">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-delay="350"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Shop.
+
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
                         <li><a href="shop-sidebar.html">Shop</a></li>
@@ -54,18 +64,23 @@
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="cart.html">Cart</a></li>
                     </ul>
-                </li><!-- / Blog -->
+                </li><!-- / Blog --> --}}
                 <!-- Account -->
                 <li class="nav-item dropdown dropdown-slide">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-delay="350"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account.
+                        Account
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown5">
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="login.html">Login Page</a></li>
-                        <li><a href="signup.html">SignUp Page</a></li>
-                        <li><a href="forgot-password.html">Forgot Password</a></li>
+                        @auth
+                        <li><a href="{{ route('dashboard') }}">{{__('My Panel')}}</a></li>
+                        <li><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
+                        @else
+                        <li><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
+                        <li><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
+                        <li><a href="#">{{__('Forgot Password')}}</a></li>
+
+                        @endauth
                     </ul>
                 </li><!-- / Account -->
                 <li class="nav-item">
@@ -83,9 +98,6 @@
                     <a href="" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="tf-ion-android-cart"></i>
 
-                        <!-- <i class="fa fa-shopping-cart text-dark"></i> -->
-                        {{-- <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag"> --}}
-                        {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
                         @if(Session::has('cart'))
                         <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
                         @else
@@ -149,7 +161,15 @@
                     </div>
                 </div>
             </li>
-            <li class="list-inline-item"><a href="#"><i class="tf-ion-ios-person mr-3"></i></a></li>
+            {{-- <li class="list-inline-item"><a href="#"><i class="tf-ion-ios-person mr-3"></i></a></li> --}}
+            <li class="dropdown cart-nav dropdown-slide list-inline-item">
+                <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
+                    <i class="tf-ion-ios-person mr-3"></i></a>
+                <ul class="dropdown-menu cart-dropdown p-2">
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>
@@ -169,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-12 text-light">
                         <div class="typed-search-box d-none">
                             <div class="search-preloader">
@@ -185,9 +205,138 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+                {{-- <div class="col-12 mt-3 bg-white pt-3">
+                    <ul class="search-list-wrapper w-100 pl-0"> --}}
+                        {{-- <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img
+                                                src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img
+                                                src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img
+                                                src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li> --}}
+                        <div class="typed-search-box d-none">
+                            <div class="search-preloader">
+                                <div class="loader">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="search-nothing d-none">
+                            </div>
+                            <div id="search-content">
+                            </div>
+                        </div>
+                    {{-- </ul>
+
+                </div> --}}
             </div>
         </form>
     </div>
 </div>
+<!--search overlay start-->
+{{-- <div class="search-wrap">
+    <div class="overlay">
+        <form action="#" class="search-form">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-9">
+                        <input type="text" class="form-control" placeholder="Search...">
+                    </div>
+                    <div class="col-md-2 col-3 text-right">
+                        <div class="search_toggle toggle-wrap d-inline-block">
+                            <img class="search-close" src="images/close.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3 bg-white pt-3">
+
+                        <ul class="search-list-wrapper w-100 pl-0">
+                            <li class="mb-2 p-1">
+                                <a href="product-detail.html">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <div class="image"> <img
+                                                    src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                    alt="search-list-image" class="img-fluid"></div>
+                                        </div>
+                                        <div class="col-10 m-auto">
+                                            <p class="m-0">Ham Cheese Burger</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mb-2 p-1">
+                                <a href="product-detail.html">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <div class="image"> <img
+                                                    src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                    alt="search-list-image" class="img-fluid"></div>
+                                        </div>
+                                        <div class="col-10 m-auto">
+                                            <p class="m-0">Ham Cheese Burger</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mb-2 p-1">
+                                <a href="product-detail.html">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <div class="image"> <img
+                                                    src="http://127.0.0.1:5500/images/shop/products/222.jpg	"
+                                                    alt="search-list-image" class="img-fluid"></div>
+                                        </div>
+                                        <div class="col-10 m-auto">
+                                            <p class="m-0">Ham Cheese Burger</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div> --}}
+<!--search overlay end-->
 <!--search overlay end-->

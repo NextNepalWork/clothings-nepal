@@ -1,84 +1,64 @@
-<a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{-- <i class="fa fa-shopping-cart text-dark"></i> --}}
-    <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag">
-    {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
+<a href="" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="tf-ion-android-cart"></i>
+
     @if(Session::has('cart'))
-        <span class="nav-box-number">{{ count(Session::get('cart'))}}</span>
+    <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
     @else
-        <span class="nav-box-number">0</span>
+    <sup class="nav-box-number">0</sup>
     @endif
 </a>
-<ul class="dropdown-menu dropdown-menu-right px-0">
-    <li>
-        <div class="dropdown-cart px-0">
-            @if(Session::has('cart'))
-                @if(count($cart = Session::get('cart')) > 0)
-                    <div class="dc-header">
-                        <h3 class="heading heading-6 strong-700">{{__('Cart Items')}}</h3>
+<div class="dropdown-menu cart-dropdown">
+    @if(Session::has('cart'))
+        @if(count($cart = Session::get('cart')) > 0)
+        
+            @php
+                $total = 0;
+            @endphp
+            @foreach($cart as $key => $cartItem)
+                @php
+                    $product = \App\Product::find($cartItem['id']);
+                    $total = $total + $cartItem['price']*$cartItem['quantity'];
+                @endphp
+                <div class="media">
+                    <a href="{{ route('product', $product->slug) }}">
+                        @if (!empty($product->thumbnail_img))
+                            @if(file_exists($product->thumbnail))
+                                <img class="media-object img- mr-3" src="{{asset($product->thumbnail_img)}}" alt="{{$product->name}}">
+                            @else
+                                <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                            @endif
+                        @else
+                            <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                        @endif
+                    </a>
+                    <div class="media-body">
+                        <h6>{{$product->name}}</h6>
+                        <div class="cart-price">
+                            <span>{{ $cartItem['quantity'] }} x</span>
+                            <span>{{ single_price($cartItem['price']) }}</span>
+                        </div>
                     </div>
-                    <div class="dropdown-cart-items c-scrollbar">
-                        @php
-                            $total = 0;
-                        @endphp
-                        @foreach($cart as $key => $cartItem)
-                            @php
-                                $product = \App\Product::find($cartItem['id']);
-                                $total = $total + $cartItem['price']*$cartItem['quantity'];
-                            @endphp
-                            <div class="dc-item">
-                                <div class="d-flex align-items-center">
-                                    <div class="dc-image">
-                                        <a href="{{ route('product', $product->slug) }}">
-                                            <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}" class="img-fluid" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="dc-content">
-                                        <span class="d-block dc-product-name text-capitalize strong-600 mb-1">
-                                            <a href="{{ route('product', $product->slug) }}">
-                                                {{ __($product->name) }}
-                                            </a>
-                                        </span>
-
-                                        <span class="dc-quantity">x{{ $cartItem['quantity'] }}</span>
-                                        <span class="dc-price">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
-                                    </div>
-                                    <div class="dc-actions">
-                                        <button onclick="removeFromCart({{ $key }})">
-                                            <i class="la la-close"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="dc-item py-3">
-                        <span class="subtotal-text">{{__('Subtotal')}}</span>
-                        <span class="subtotal-amount">{{ single_price($total) }}</span>
-                    </div>
-                    <div class="py-2 text-center dc-btn">
-                        <ul class="inline-links inline-links--style-3">
-                            <li class="pr-3">
-                                <a href="{{ route('cart') }}" class="link link--style-1 text-capitalize btn btn-base-1 px-3 py-1">
-                                    <i class="la la-shopping-cart"></i> {{__('View cart')}}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('checkout.shipping_info') }}" class="link link--style-1 text-capitalize btn btn-base-1 px-3 py-1 light-text">
-                                    <i class="la la-mail-forward"></i> {{__('Checkout')}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                @else
-                    <div class="dc-header">
-                        <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
-                    </div>
-                @endif
-            @else
-                <div class="dc-header">
-                    <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
+                    <a class="remove" title="Remove" onclick="removeFromCart({{ $key }})" style="cursor: pointer"><i class="tf-ion-close"></i></a>
                 </div>
-            @endif
+            @endforeach
+            <div class="cart-summary">
+                <span class="h6">Total</span>
+                <span class="total-price h6">{{ single_price($total) }}</span>
+                <div class="text-center cart-buttons mt-3">
+                    <a href="{{ route('cart') }}" class="btn btn-small btn-transparent btn-block">View Cart</a>
+                    @if (Auth::check())
+                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-small btn-main btn-block">Checkout</a>
+                    @endif
+                </div>
+            </div>
+        @else
+        <div class="media">
+            <span class="h6">Your Cart Is Empty</span>
         </div>
-    </li>
-</ul>
+        @endif
+    @else
+        <div class="media">
+            <span class="h6">Your Cart Is Empty</span>
+        </div>
+    @endif
+</div>
