@@ -132,9 +132,11 @@
     $time = [];
 @endphp
 
+<!-- Product section -->
 <section class="section products-list">
     <div class="container">
         <div class="row">
+            <!-- Flash sale section -->
             <div class="col-lg-4 col-sm-6 col-md-6">
                 <div class="flash_men my-4 my-md-0">
                     @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
@@ -203,207 +205,34 @@
                                         </div>
                                     </div>
                                 </div>
-
-                    {{-- <div class="special_offer_men p-4 text-center">
-                        <div class="special_header d-flex justify-content-between align-items-center">
-                            <div class="special_title">
-                                <h4>Special Offer</h4>
-                            </div>
-                            <div class="savings">
-                                <span class="savings-text">
-                                    <span class="font-weight-normal"> Save</span> <span
-                                        class="woocommerce-Price-amount amount font-weight-bold"><bdi><span
-                                                class="woocommerce-Price-currencySymbol">$</span>20.00</bdi></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="special_left">
-                            <a href="">
-                                <img src="https://clothingsnepal.com/uploads/product/201706220613191.jpg"
-                                    class="img-fluid" alt="">
-                                <h6>Game Console Controller + USB 3.0 Cable</h6>
-                            </a>
-                        </div>
-                        <div class="special_price_le py-2">
-                            <h4> <span class="red_text">Rs79.00</span> <small><strike>Rs999</strike></small> </h4>
-                        </div>
-                        <div class="special_countdown">
-                            <div class="content_left">
-                                <h5 id="headline">Hurry Up! Offer ends in:</h5>
-                                <div id="countdown">
-                                    <ul class="d-flex align-items-center justify-content-around m-0 p-0">
-                                        <li class="d-flex"><span id="hours" class=""></span>:Hours</li>
-                                        <li class="d-flex"><span id="minutes" class=""></span>:Minutes</li>
-                                        <li class="d-flex"><span id="seconds" class=""></span>:Seconds</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-        
                             @endif
                     @endforeach
-                    {{-- <div class="special_offer_men p-4 text-center">
-                        <div class="special_header d-flex justify-content-between align-items-center">
-                            <div class="special_title">
-                                <h4>Special Offer</h4>
-                            </div>
-                            <div class="savings">
-                                <span class="savings-text">
-                                    <span class="font-weight-normal"> Save</span> <span
-                                        class="woocommerce-Price-amount amount font-weight-bold"><bdi><span
-                                                class="woocommerce-Price-currencySymbol">$</span>20.00</bdi></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="special_left">
-                            <a href="">
-                                <img src="https://clothingsnepal.com/uploads/product/201605021457081.jpg"
-                                    class="img-fluid" alt="">
-                                <h6>Game Console Controller + USB 3.0 Cable</h6>
-                            </a>
-                        </div>
-                        <div class="special_price_le py-2">
-                            <h4> <span class="red_text">Rs79.00</span> <small><strike>Rs999</strike></small> </h4>
-                        </div>
-                        <div class="special_countdown">
-                            <div class="content_left">
-                                <h5 id="headline">Hurry Up! Offer ends in:</h5>
-                                <div id="countdown">
-                                    <ul class="d-flex align-items-center justify-content-around m-0 p-0">
-                                        <li class="d-flex"><span id="hours_a" class=""></span>:Hours</li>
-                                        <li class="d-flex"><span id="minutes_a" class=""></span>:Minutes</li>
-                                        <li class="d-flex"><span id="seconds_a" class=""></span>:Seconds</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 col-md-6">
-                <div class="widget-featured-entries mt-5 mt-lg-0">
-                    <h4 class="mb-4 pb-3">Top Products</h4>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-1.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Keds - Kickstart Pom
-                                    Pom</a></h6>
-                            <p class="featured-entry-meta">$42.99</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-2.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Nike - Brasilia
-                                    Medium Backpack</a></h6>
-                            <p class="featured-entry-meta">$27.99</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-3.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Guess - GU7295</a>
-                            </h6>
-                            <p>$38.00</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-4.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Adidas Originals
-                                    Cap</a></h6>
-                            <p class="featured-entry-meta">$35.00</p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-5.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Big Star Flip
-                                    Tops</a></h6>
-                            <p class="featured-entry-meta">$10.60</p>
-                        </div>
-                    </div>
-                </div>
+            <!-- Flash sale section -->
+
+            <!-- Featured section -->
+            <div class="col-lg-4 col-sm-6 col-md-6" id="section_featured">
+
             </div>
-            <div class="col-lg-4 col-sm-6 col-md-6">
-                <div class="widget-featured-entries mt-5 mt-lg-0">
-                    <h4 class="mb-4 pb-3">Best Selling</h4>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-7.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Keds - Kickstart Pom
-                                    Pom</a></h6>
-                            <p class="featured-entry-meta">$42.99</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-8.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Nike - Brasilia
-                                    Medium Backpack</a></h6>
-                            <p class="featured-entry-meta">$27.99</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-1.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Guess - GU7295</a>
-                            </h6>
-                            <p>$38.00</p>
-                        </div>
-                    </div>
-                    <div class="media mb-3">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-2.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Adidas Originals
-                                    Cap</a></h6>
-                            <p class="featured-entry-meta">$35.00</p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <a class="featured-entry-thumb" href="#">
-                            <img src="images/shop/widget/p-4.jpg" alt="Product thumb" width="64"
-                                class="img-fluid mr-3">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Big Star Flip
-                                    Tops</a></h6>
-                            <p class="featured-entry-meta">$10.60</p>
-                        </div>
-                    </div>
-                </div>
+            <!-- Featured section -->
+
+            <!-- Best selling section -->
+
+            @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
+            <div class="col-lg-4 col-sm-6 col-md-6" id="section_best_selling">
+
             </div>
+            @endif
+            <!-- Best selling section -->
+
+
         </div>
     </div>
 </section>
+<!-- Product section -->
+
+
 <section class="features border-top">
     <div class="container">
         <div class="row">
@@ -412,7 +241,7 @@
                     <i class="tf-ion-android-bicycle"></i>
                     <div class="content">
                         <h5>Free Shipping</h5>
-                        <p>On all order over $39.00</p>
+                        <p>On all order over Rs.1000</p>
                     </div>
                 </div>
             </div>

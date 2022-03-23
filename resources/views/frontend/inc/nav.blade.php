@@ -1,7 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation" id="navbar">
     <div class="container">
-        <a class="navbar-brand font-weight-bold p-0" href="index.html"><img src="images/logo.png" alt="Adrian."
-                class="img-fluid"></a>
+        <a class="navbar-brand font-weight-bold p-0" href="{{route('home')}}">
+            @php
+                $generalsetting = \App\GeneralSetting::first();
+            @endphp
+            @if($generalsetting->logo != null)
+                <img src="{{ asset($generalsetting->logo) }}" class="img-fluid" alt="{{ env('APP_NAME') }}">
+            @else
+                <img src="{{ asset('frontend/assets/images/logo.png') }}" class="img-fluid" alt="{{ env('APP_NAME') }}">
+            @endif
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
             aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,7 +17,7 @@
         <div class="collapse navbar-collapse " id="main-navbar">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home </a>
+                    <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">About Us</a>
