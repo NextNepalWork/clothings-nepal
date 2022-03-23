@@ -207,8 +207,8 @@
 <script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script> --}}
+{{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
