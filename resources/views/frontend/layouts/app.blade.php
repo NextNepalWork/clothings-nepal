@@ -60,15 +60,15 @@
 {{-- <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
 {{-- <link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
 
-{{-- <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
+{{-- <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
+<link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
 
 <!-- Global style (main) -->
 {{-- <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all"> --}}
@@ -100,6 +100,8 @@
 <!-- jQuery -->
 {{-- <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script> --}}
 
+<!-- Main jQuery -->
+<script src="{{asset('frontend/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
 
 {{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -207,7 +209,7 @@
 <script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
 {{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
 
 {{-- script-new js --}}
@@ -216,8 +218,7 @@
 	<!-- 
     Essential Scripts
     =====================================-->
-	<!-- Main jQuery -->
-	<script src="{{asset('frontend/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
+
 	<!-- Bootstrap 4.3.1 -->
 	<script src="{{asset('frontend/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 	<!-- Count Down Js -->

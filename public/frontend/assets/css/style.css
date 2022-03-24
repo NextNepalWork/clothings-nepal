@@ -2695,3 +2695,41 @@ section#checkout .checkout-wrapper {
   background-position: center;
   margin-right: 5px;
 }
+
+
+span .inactive{
+  color:black !important;
+}
+
+
+
+.c-rating>label {
+  color: #d9dbdc;
+  float: right;
+  margin-bottom: 0;
+}
+
+.c-rating>label:before {
+  margin: 0 2px;
+  font-size: 16px;
+  font-family: FontAwesome;
+  content: "\f005";
+  display: inline-block;
+}
+
+.c-rating>input {
+  display: none;
+}
+
+.c-rating>input:checked~label,
+.c-rating:not(:checked)>label:hover,
+.c-rating:not(:checked)>label:hover~label {
+  color: #ffcc00;
+}
+
+.c-rating>input:checked+label:hover,
+.c-rating>input:checked~label:hover,
+.c-rating>label:hover~input:checked~label,
+.c-rating>input:checked~label:hover~label {
+  color: #ffcc00;
+}
