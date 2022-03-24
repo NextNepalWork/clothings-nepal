@@ -10,13 +10,7 @@
                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true">{{ __('Home slider') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ __('Home banner 1') }}</a>
-            </li>
-            <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ __('Home categories') }}</a>
-            </li>
-            <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ __('Home banner 2') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ __('Home banner') }}</a>
             </li>
             <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ __('Top 10') }}</a>
@@ -130,116 +124,10 @@
                     </div>
                 </div>
             </div>
-            <div id="demo-lft-tab-3" class="tab-pane fade">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <a onclick="add_banner_2()" class="btn btn-rounded btn-info pull-right">{{__('Add New Banner')}}</a>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{__('Home banner')}} (Max 3 published)</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{__('Photo')}}</th>
-                                    <th>{{__('Position')}}</th>
-                                    <th>{{__('Published')}}</th>
-                                    <th width="10%">{{__('Options')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(\App\Banner::where('position', 2)->get() as $key => $banner)
-                                    <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td><img loading="lazy"  class="img-md" src="{{ asset($banner->photo)}}" alt="banner Image"></td>
-                                        <td>{{ __('Banner Position ') }}{{ $banner->position }}</td>
-                                        <td><label class="switch">
-                                            <input onchange="update_banner_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($banner->published == 1) echo "checked";?> >
-                                            <span class="slider round"></span></label></td>
-                                        <td>
-                                            <div class="btn-group dropdown">
-                                                <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                    {{__('Actions')}} <i class="dropdown-caret"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a onclick="edit_home_banner_2({{ $banner->id }})">{{__('Edit')}}</a></li>
-                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{__('Delete')}}</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-            <div id="demo-lft-tab-4" class="tab-pane fade">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <a onclick="add_home_category()" class="btn btn-rounded btn-info pull-right">{{__('Add New Category')}}</a>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{__('Home Categories')}}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{__('Category')}}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th width="10%">{{__('Options')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(\App\HomeCategory::all() as $key => $home_category)
-                                    @if ($home_category->category != null)
-                                        <tr>
-                                            <td>{{$key+1}}</td>
-                                            <td>{{$home_category->category->name}}</td>
-                                            <td><label class="switch">
-                                                <input onchange="update_home_category_status(this)" value="{{ $home_category->id }}" type="checkbox" <?php if($home_category->status == 1) echo "checked";?> >
-                                                <span class="slider round"></span></label></td>
-                                            <td>
-                                                <div class="btn-group dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                        {{__('Actions')}} <i class="dropdown-caret"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a onclick="edit_home_category({{ $home_category->id }})">{{__('Edit')}}</a></li>
-                                                        <li><a onclick="confirm_modal('{{route('home_categories.destroy', $home_category->id)}}');">{{__('Delete')}}</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
             <div id="demo-lft-tab-5" class="tab-pane fade">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{__('Top 10 Information')}}</h3>
+                        <h3 class="panel-title">{{__('Top 10 Brands')}}</h3>
                     </div>
 
                     <!--Horizontal Form-->
@@ -247,16 +135,6 @@
                     <form class="form-horizontal" action="{{ route('top_10_settings.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label class="col-sm-3" for="url">{{__('Top Categories (Max 10)')}}</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control demo-select2-max-10" name="top_categories[]" multiple required>
-                                        @foreach (\App\Category::all() as $key => $category)
-                                            <option value="{{ $category->id }}" @if($category->top == 1) selected @endif>{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3" for="url">{{__('Top Brands (Max 10)')}}</label>
                                 <div class="col-sm-9">

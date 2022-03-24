@@ -24,10 +24,10 @@
                 </div>
                 <br>
                 <p class="text-lg text-main">{{__('Total published products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->get()->count() }}</span></p>
-                @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                {{-- @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                     <p class="text-lg text-main">{{__('Total sellers products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count() }}</span></p>
-                @endif
-                <p class="text-lg text-main">{{__('Total admin products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }}</span></p>
+                @endif --}}
+                {{-- <p class="text-lg text-main">{{__('Total admin products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }}</span></p> --}}
                 <br>
                 <a href="{{ route('products.admin') }}" class="btn btn-primary mar-top">Manage Products <i class="fa fa-long-arrow-right"></i></a>
             </div>
@@ -41,13 +41,6 @@
                         <p class="text-normal text-main">{{__('Total product category')}}</p>
                         <p class="text-semibold text-3x text-main">{{ \App\Category::all()->count() }}</p>
                         <a href="{{ route('categories.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Category')}}</a>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="pad-top text-center dash-widget">
-                        <p class="text-normal text-main">{{__('Total product sub sub category')}}</p>
-                        <p class="text-semibold text-3x text-main">{{ \App\SubSubCategory::all()->count() }}</p>
-                        <a href="{{ route('subsubcategories.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Sub Sub Category')}}</a>
                     </div>
                 </div>
             </div>
@@ -72,52 +65,6 @@
 </div>
 @endif
 
-@if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-    <div class="row">
-    <div class="col-md-4">
-        <div class="panel">
-            <div class="panel-body text-center dash-widget dash-widget-left">
-                <div class="dash-widget-vertical">
-                    <div class="rorate">{{__('SELLERS')}}</div>
-                </div>
-                <br>
-                <p class="text-normal text-main">{{__('Total sellers')}}</p>
-                <p class="text-semibold text-3x text-main">{{ \App\Seller::all()->count() }}</p>
-                <br>
-                <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel">
-            <div class="panel-body text-center dash-widget">
-                <br>
-                <p class="text-normal text-main">{{__('Total approved sellers')}}</p>
-                <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 1)->get()->count() }}</p>
-                <br>
-                <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel">
-            <div class="panel-body text-center dash-widget">
-                <br>
-                <p class="text-normal text-main">{{__('Total pending sellers')}}</p>
-                <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 0)->count() }}</p>
-                <br>
-                <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 
 @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
     <div class="row">
@@ -337,43 +284,11 @@
         <div class="panel">
             <div class="pad-top text-center dash-widget">
                 <p class="text-semibold text-lg text-main mar-ver">
-                    {{__('Currency')}} <br>
-                    {{__('setting')}}
-                </p>
-                <br>
-                <a href="{{route('currency.index')}}" class="btn btn-primary mar-top btn-block top-border-radius-no ">{{__('Click Here')}}</a>
-            </div>
-        </div>
-        <div class="panel">
-            <div class="pad-top text-center dash-widget">
-                <p class="text-semibold text-lg text-main mar-ver">
-                    {{__('Seller verification')}} <br>
-                    {{__('form setting')}}
-                </p>
-                <br>
-                <a href="{{route('seller_verification_form.index')}}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Click Here')}}</a>
-            </div>
-        </div>
-    </div>
-    <div class="flex-col-xl flex-col-lg-6 flex-col-12">
-        <div class="panel">
-            <div class="pad-top text-center dash-widget">
-                <p class="text-semibold text-lg text-main mar-ver">
                     {{__('Language')}} <br>
                     {{__('setting')}}
                 </p>
                 <br>
                 <a href="{{route('languages.index')}}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Click Here')}}</a>
-            </div>
-        </div>
-        <div class="panel">
-            <div class="pad-top text-center dash-widget">
-                <p class="text-semibold text-lg text-main mar-ver">
-                    {{__('Seller commission')}} <br>
-                    {{__('setting')}}
-                </p>
-                <br>
-                <a href="{{ route('business_settings.vendor_commission') }}" class="btn btn-primary mar-top btn-block">{{__('Click Here')}}</a>
             </div>
         </div>
     </div>
