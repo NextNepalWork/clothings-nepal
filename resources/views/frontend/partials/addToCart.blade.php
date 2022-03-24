@@ -79,7 +79,7 @@
                     </div>
                 @endif
 
-                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $product->earn_point > 0)
+                {{-- @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $product->earn_point > 0)
                     <div class="row no-gutters mt-4">
                         <div class="col-2">
                             <div class="product-description-label">{{ __('Club Point') }}:</div>
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
                 <hr>
 
@@ -172,16 +172,18 @@
                                     <div class="input-group input-group--style-2 pr-3" style="width: 160px;">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="minus"
-                                                    data-field="quantity" disabled="disabled">
-                                                <i class="la la-minus"></i>
+                                                    data-field="quantity" disabled="disabled" style="    border: none;
+                                                    padding: 15px;">
+                                                <i class="fa fa-minus"></i>
                                             </button>
                                         </span>
                                         <input type="text" name="quantity" class="form-control input-number text-center"
-                                               placeholder="1" value="1" min="1" max="10">
+                                               placeholder="1" value="0" min="1" max="10">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="plus"
-                                                    data-field="quantity">
-                                                <i class="la la-plus"></i>
+                                                    data-field="quantity" style="border: none;
+                                                    padding: 15px;">
+                                                <i class="fa fa-plus"></i>
                                             </button>
                                         </span>
                                     </div>
@@ -195,7 +197,7 @@
                         <hr>
                     @endif
 
-                    <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
+                    <div class="row no-gutters pb-3" id="chosen_price_div">
                         <div class="col-2">
                             <div class="product-description-label">{{__('Total Price')}}:</div>
                         </div>

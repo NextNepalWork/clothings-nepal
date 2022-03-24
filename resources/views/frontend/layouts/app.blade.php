@@ -71,7 +71,7 @@
 <link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
 
 <!-- Global style (main) -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
 {{-- martin edit css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all"> --}}
@@ -80,7 +80,7 @@
 
 
 
-{{-- <link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
 
 {{-- style-new css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
@@ -210,7 +210,7 @@
 
 <!-- App JS -->
 <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-{{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/main.js') }}"></script>
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
