@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading bord-btm">
                 <h3 class="panel-title">{{__('Select Shipping Method')}}</h3>
@@ -33,7 +33,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading bord-btm">
