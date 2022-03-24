@@ -19,11 +19,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
-                @php
+                {{-- @php
                     $about=\App\Page::first();
-                @endphp
+                    {{route('custom-pages.show_custom_page',$about->slug)}}
+                @endphp --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('custom-pages.show_custom_page',$about->slug)}}">About Us</a>
+                    <a class="nav-link" href="#">About Us</a>
                 </li>
                 <!-- Pages -->
                 <li class="nav-item dropdown dropdown-slide">
@@ -66,7 +67,7 @@
                     </ul>
                 </li><!-- / Blog --> --}}
                 <!-- Account -->
-                <li class="nav-item dropdown dropdown-slide">
+                {{-- <li class="nav-item dropdown dropdown-slide">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-delay="350"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account
@@ -78,11 +79,11 @@
                         @else
                         <li><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
                         <li><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
-                        <li><a href="#">{{__('Forgot Password')}}</a></li>
+                        <li><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
 
                         @endauth
                     </ul>
-                </li><!-- / Account -->
+                </li><!-- / Account --> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact Us</a>
                 </li>
@@ -166,8 +167,15 @@
                 <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
                     <i class="tf-ion-ios-person mr-3"></i></a>
                 <ul class="dropdown-menu cart-dropdown p-2">
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="signup.html">Sign Up</a></li>
+                    @auth
+                    <li><a href="{{ route('dashboard') }}">{{__('My Profile')}}</a></li>
+                    <li><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
+                    @else
+                    <li><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
+                    <li><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
+                    <li><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
+
+                    @endauth
                 </ul>
             </li>
         </ul>
