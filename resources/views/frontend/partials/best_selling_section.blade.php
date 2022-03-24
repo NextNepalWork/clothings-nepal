@@ -1,4 +1,4 @@
-@if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
     <section class="mb-4">
         <div class="container">
             <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
@@ -89,4 +89,38 @@
             </div>
         </div>
     </section>
-@endif
+@endif --}}
+
+
+<div class="widget-featured-entries mt-5 mt-lg-0">
+    <h4 class="mb-4 pb-3">Best Selling</h4>
+    @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(5)->get() as $key => $product)
+
+    <div class="media mb-3">
+        <a class="featured-entry-thumb" href="{{ route('product', $product->slug) }}">
+            @if (!empty($product->thumbnail_img))
+                @if(file_exists($product->thumbnail))
+                    <img class="img-fluid mr-3" src="{{ asset($product->thumbnail_img) }}" width="64" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                @else
+                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" width="64" class="img-fluid mr-3">
+                @endif
+            @else
+                <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" width="64" class="img-fluid mr-3">
+
+            @endif
+        </a>
+        <div class="media-body">
+            <h6 class="featured-entry-title mb-0"><a href="{{ route('product', $product->slug) }}">{{$product->name}}</a></h6>
+            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+            <small>
+                <strike>
+                    {{ home_base_price($product->id) }}
+                </strike>
+            </small>
+            @endif
+            <p class="featured-entry-meta">{{ home_discounted_base_price($product->id) }}</p>
+        </div>
+    </div>
+    @endforeach
+</div>
+
