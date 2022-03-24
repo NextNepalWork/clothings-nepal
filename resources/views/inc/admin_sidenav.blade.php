@@ -100,24 +100,8 @@
                                     <li class="{{ areActiveRoutes(['subcategories.index', 'subcategories.create', 'subcategories.edit'])}}">
                                         <a class="nav-link" href="{{route('subcategories.index')}}">{{__('Subcategory')}}</a>
                                     </li>
-                                    <li class="{{ areActiveRoutes(['subsubcategories.index', 'subsubcategories.create', 'subsubcategories.edit'])}}">
-                                        <a class="nav-link" href="{{route('subsubcategories.index')}}">{{__('Sub Subcategory')}}</a>
-                                    </li>
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
-                                        <a class="nav-link" href="{{route('products.admin')}}">{{__('In House Products')}}</a>
-                                    </li>
-                                    @if(\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                        <li class="{{ areActiveRoutes(['products.seller', 'products.seller.edit'])}}">
-                                            <a class="nav-link" href="{{route('products.seller')}}">{{__('Seller Products')}}</a>
-                                        </li>
-                                    @endif
-                                    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
-                                        <li class="{{ areActiveRoutes(['classified_products'])}}">
-                                            <a class="nav-link" href="{{route('classified_products')}}">{{__('Classified Products')}}</a>
-                                        </li>
-                                    @endif
-                                    <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
-                                        <a class="nav-link" href="{{route('digitalproducts.index')}}">{{__('Digital Products')}}</a>
+                                        <a class="nav-link" href="{{route('products.admin')}}">{{__('Products')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{__('Bulk Import')}}</a>
@@ -165,32 +149,7 @@
                         <li class="{{ areActiveRoutes(['orders.index.admin'])}}">
                             <a class="nav-link" href="{{ route('orders.index.admin') }}">
                                 <i class="fa fa-shopping-basket"></i>
-                                <span class="menu-title">{{__('Inhouse orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
-                            </a>
-                        </li>
-                        @endif
-
-                        @if(Auth::user()->user_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
-                            @php
-                            $admin_user_id=array();
-                            foreach(\App\User::where('user_type', 'seller')->get() as $user){
-                                array_push($admin_user_id,$user->id);
-                            }
-
-                                $orders = DB::table('orders')
-                                            ->orderBy('code', 'desc')
-                                            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                                            ->whereIn('order_details.seller_id', (array)$admin_user_id)
-                                            ->where('orders.viewed', 0)
-                                            ->select('orders.id')
-                                            ->distinct()
-                                            ->count();
-
-                            @endphp
-                        <li class="{{ areActiveRoutes(['orders.seller'])}}">
-                            <a class="nav-link" href="{{ route('orders.seller') }}">
-                                <i class="fa fa-shopping-basket"></i>
-                                <span class="menu-title">{{__('Seller orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
+                                <span class="menu-title">{{__('Orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
                             </a>
                         </li>
                         @endif
@@ -237,76 +196,16 @@
                                 </ul>
                             </li>
                         @endif
-                        @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-user-plus"></i>
-                                <span class="menu-title">{{__('Sellers')}}</span>
-                                <i class="arrow"></i>
-                            </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li class="{{ areActiveRoutes(['sellers.index', 'sellers.create', 'sellers.edit', 'sellers.payment_history','sellers.approved','sellers.profile_modal'])}}">
-                                    @php
-                                        $sellers = \App\Seller::where('verification_status', 0)->where('verification_info', '!=', null)->count();
-                                        //$withdraw_req = \App\SellerWithdrawRequest::where('viewed', '0')->get();
-                                    @endphp
-                                    <a class="nav-link" href="{{route('sellers.index')}}">{{__('Seller List')}} @if($sellers > 0)<span class="pull-right badge badge-info">{{ $sellers }}</span> @endif</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['withdraw_requests_all'])}}">
-                                    <a class="nav-link" href="{{ route('withdraw_requests_all') }}">{{__('Seller Withdraw Requests')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['sellers.payment_histories'])}}">
-                                    <a class="nav-link" href="{{ route('sellers.payment_histories') }}">{{__('Seller Payments')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['business_settings.vendor_commission'])}}">
-                                    <a class="nav-link" href="{{ route('business_settings.vendor_commission') }}">{{__('Seller Commission')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['seller_verification_form.index'])}}">
-                                    <a class="nav-link" href="{{route('seller_verification_form.index')}}">{{__('Seller Verification Form')}}</a>
-                                </li>
-                                @if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated)
-                                    <li class="{{ areActiveRoutes(['seller_packages.index', 'seller_packages.create', 'seller_packages.edit'])}}">
-                                        <a class="nav-link" href="{{ route('seller_packages.index') }}">{{__('Seller Packages')}}</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                        @endif
 
                         @if(Auth::user()->user_type == 'admin' || in_array('6', json_decode(Auth::user()->staff->role->permissions)))
-                        <li>
-                            <a href="#">
+                        <li class="{{ areActiveRoutes(['customers.index'])}}">
+                            <a href="{{ route('customers.index') }}">
                                 <i class="fa fa-user-plus"></i>
                                 <span class="menu-title">{{__('Customers')}}</span>
                                 <i class="arrow"></i>
                             </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li class="{{ areActiveRoutes(['customers.index'])}}">
-                                    <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
-                                    <a class="nav-link" href="{{ route('customer_packages.index') }}">{{__('Classified Packages')}}</a>
-                                </li>
-                            </ul>
                         </li>
                         @endif
-                        @php
-                            $conversation = \App\Conversation::where('receiver_id', Auth::user()->id)->where('receiver_viewed', '1')->get();
-                        @endphp
-                        <li class="{{ areActiveRoutes(['conversations.admin_index', 'conversations.admin_show'])}}">
-                            <a class="nav-link" href="{{ route('conversations.admin_index') }}">
-                                <i class="fa fa-comment"></i>
-                                <span class="menu-title">{{__('Conversations')}}</span>
-                                @if (count($conversation) > 0)
-                                    <span class="pull-right badge badge-info">{{ count($conversation) }}</span>
-                                @endif
-                            </a>
-                        </li>
-
                         <li>
                             <a href="#">
                                 <i class="fa fa-file"></i>
@@ -320,13 +219,7 @@
                                     <a class="nav-link" href="{{ route('stock_report.index') }}">{{__('Stock Report')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['in_house_sale_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{__('In House Sale Report')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['seller_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('seller_report.index') }}">{{__('Seller Report')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['seller_sale_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('seller_sale_report.index') }}">{{__('Seller Based Selling Report')}}</a>
+                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{__('Sale Report')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['wish_report.index'])}}">
                                     <a class="nav-link" href="{{ route('wish_report.index') }}">{{__('Product Wish Report')}}</a>
@@ -385,12 +278,6 @@
                                 <li class="{{ areActiveRoutes(['social_login.index'])}}">
                                     <a class="nav-link" href="{{ route('social_login.index') }}">{{__('Social Media Login')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['currency.index'])}}">
-                                    <a class="nav-link" href="{{route('currency.index')}}">{{__('Currency')}}</a>
-                                </li>
-                                {{-- <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
-                                    <a class="nav-link" href="{{route('languages.index')}}">{{__('Languages')}}</a>
-                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -447,22 +334,19 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.logo'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.logo')}}">{{__('Logo Settings')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
-                                    <a class="nav-link" href="{{route('generalsettings.color')}}">{{__('Color Settings')}}</a>
-                                </li>
                             </ul>
                         </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['locations.index','locations.create','locations.edit'])}}">
                             <a class="nav-link" href="{{route('locations.index')}}">
                                 <i class="fa fa-map-marker"></i>
                                 <span class="menu-title">{{__(' Location Settings')}}</span>
-                                {{-- <i class="arrow"></i> --}}
+                                <i class="arrow"></i>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('12', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
@@ -490,11 +374,11 @@
                                         <a class="nav-link" href="{{route('shipping_configuration.index')}}">{{__('Shipping Configuration')}}</a>
                                     </li>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <li class="{{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
                                         <a class="nav-link" href="{{route('countries.index')}}">{{__('Shipping Countries')}}</a>
                                     </li>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -665,12 +549,12 @@
                                     
                                 </ul>
                             </li>
-                            <li class="">
+                            {{-- <li class="">
                                 <a class="nav-link" href="{{ route('state.index') }}">
                                     <i class="fa fa-wrench"></i>
                                     <span class="menu-title">{{__('States')}}</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
                         {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
