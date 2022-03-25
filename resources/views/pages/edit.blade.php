@@ -65,19 +65,19 @@
 							</select>
 						</div>
 					</div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label class="col-sm-3 control-label" for="seller">{{__('Seller')}}</label>
 						<div class="col-sm-9">
                             <select class="form-control demo-select2-placeholder" name="seller_id" id="seller_id">
                                 <option value=""></option>
                                 @foreach(\App\Seller::with('user')->get() as $seller)
                                     @isset($seller->user->name)
-                                        <option value="{{$seller->user_id}}" <?php if($page->seller_id == $seller->id) echo "selected"; ?>>{{__($seller->user->name)}}</option>
+                                        <option value="{{$seller->user_id}}" @php if($page->seller_id == $seller->id) echo "selected"; @endphp>{{__($seller->user->name)}}</option>
                                     @endisset
                                 @endforeach
 							</select>
 						</div>
-					</div>
+					</div> --}}
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="content">{{__('Content')}}</label>
                         <div class="col-sm-9">

@@ -59,7 +59,7 @@
 <section class="about section">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-sm-6  col-md-6">
+        {{-- <div class="col-lg-4 col-sm-6  col-md-6">
           <div class="about-info mb-5 mb-lg-0">
             <img class="img-fluid" src="images/about/about-1.jpg" alt="about-img">
             <h4 class="mt-4">Our Mission</h4>
@@ -82,7 +82,8 @@
             <p>Praesent blandit dolorhon quam. In vemi sit amet augue congue elementum. Morbi in ipsum sit amet pede
               facilisis laoreet.</p>
           </div>
-        </div>
+        </div> --}}
+        {!! $page->content !!}
       </div>
     </div>
 </section>
