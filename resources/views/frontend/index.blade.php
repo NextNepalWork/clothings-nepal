@@ -143,8 +143,15 @@
 <!-- banner end -->
 
 @php
-    $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();    
+
     $time = [];
+    $flash_deals = \App\FlashDeal::where([
+                                    ['status', 1],
+                                    ['featured', 1],
+                                    ['start_date','<=',strtotime(now())],
+                                    ['end_date','>=',strtotime(now())],
+                        ])->first();
+                     
 @endphp
 
 <!-- Product section -->
@@ -154,12 +161,12 @@
             <!-- Flash sale section -->
             <div class="col-lg-4 col-sm-6 col-md-6">
                 <div class="flash_men my-4 my-md-0">
-                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                    @if ($flash_deals != null)
+                    @foreach ($flash_deals->flash_deal_products as $key => $flash_deal_product)
                             @php
                                 $product = \App\Product::find($flash_deal_product->product_id);
-                                $enddate = $flash_deal->end_date;
+                                $enddate = $flash_deals->end_date;
                                 $time = date('m/d/Y', $enddate);
-                                // dd($product);
                             @endphp
         
                             @if ($product != null && $product->published != 0)
@@ -215,11 +222,7 @@
                                         <h5 id="headline">Hurry Up! Offer ends in:</h5>
                                         <div id="countdown">
                                             <ul class="d-flex align-items-center justify-content-around m-0 p-0">
-                                                <!-- <li class="d-flex flex-column"><span id="days"></span>days</li> -->
                                                 <span class="demo"></span>
-                                                {{-- <li class="d-flex flex-column"><span id="hours"></span>Hours</li>
-                                                <li class="d-flex flex-column"><span id="minutes"></span>Minutes</li>
-                                                <li class="d-flex flex-column"><span id="seconds"></span>Seconds</li> --}}
                                             </ul>
                                         </div>
                                         </div>
@@ -227,6 +230,7 @@
                                 </div>
                             @endif
                     @endforeach
+                    @endif
                 </div>
             </div>
             <!-- Flash sale section -->
