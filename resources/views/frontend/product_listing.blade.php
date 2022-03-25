@@ -46,7 +46,7 @@ $meta_description = \App\SeoSetting::first()->description;
 
 @section('content')
 
-<div class="breadcrumb-area">
+{{-- <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -69,10 +69,40 @@ $meta_description = \App\SeoSetting::first()->description;
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">All Products</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('Home')}}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
+                            @if(isset($category_id))
+                            <li class="breadcrumb-item active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
+                            @endif
+                            @if(isset($subcategory_id))
+                            <li class="breadcrumb-item"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
+                            @endif
+                            @if(isset($subsubcategory_id))
+                            <li class="breadcrumb-item"><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
+                            @endif
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<section class="gry-bg py-4">
+<section class="products-shop section">
     <div class="container sm-px-0">
         <form class="" id="search-form" action="{{ route('search') }}" method="GET">
             <div class="row">
@@ -154,7 +184,8 @@ $meta_description = \App\SeoSetting::first()->description;
                                 </div>
                             </div>
                         </div>
-
+                        @if (count($all_colors)>0)
+                            
                         <div class="bg-white sidebar-box mb-3">
                             <div class="box-title text-center">
                                 {{__('Filter by color')}}
@@ -171,6 +202,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                 </ul>
                             </div>
                         </div>
+                        @endif
 
                         @foreach ($attributes as $key => $attribute)
                         @if (\App\Attribute::find($attribute['id']) != null)
@@ -224,7 +256,7 @@ $meta_description = \App\SeoSetting::first()->description;
                     @endisset
 
                     <div class="sort-by-bar row no-gutters bg-white mb-3 px-3 pt-2">
-                        <div class="col-xl-4 d-flex d-xl-block justify-content-between align-items-end ">
+                        <div class="col-xl-5 d-flex d-xl-block justify-content-between align-items-end ">
                             <div class="sort-by-box flex-grow-1">
                                 <div class="form-group">
                                     <label>{{__('Search')}}</label>
@@ -242,9 +274,9 @@ $meta_description = \App\SeoSetting::first()->description;
                                 </button>
                             </div>
                         </div>
-                        <div class="col-xl-7 offset-xl-1">
+                        <div class="col-xl-6 offset-xl-1">
                             <div class="row no-gutters">
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sort by')}}</label>
@@ -257,7 +289,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Brands')}}</label>
@@ -270,7 +302,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sellers')}}</label>
@@ -284,8 +316,8 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                </div> --}}
+                                {{-- <div class="col-lg-4 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Locations')}}</label>
@@ -297,7 +329,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -308,7 +340,7 @@ $meta_description = \App\SeoSetting::first()->description;
                         <div class="row">
                             @if (isset($products) && !($products->isEmpty()))
                             @foreach ($products as $key => $product)
-                            <div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
+                            {{-- <div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
                                 <div class="product-box-2 bg-white alt-box my-md-2">
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
@@ -349,6 +381,54 @@ $meta_description = \App\SeoSetting::first()->description;
                                             <span class="strong-700 float-right">{{ $product->earn_point }}</span>
                                         </div>
                                         @endif
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="col-lg-4 col-12 col-md-6 col-sm-6 mb-5">
+                                <div class="product">
+                                    <div class="product-wrap">
+                                        <a href="{{ route('product', $product->slug) }}">
+                                            @if (!empty($product->thumbnail_img))
+                                                @if(file_exists($product->thumbnail_img))
+                                                    <img class="img-fluid w-100 mb-3 img-first" src="{{asset($product->thumbnail_img)}}" alt="{{$product->name}}">
+                                                @else
+                                                    <img class="img-fluid w-100 mb-3 img-first" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                                                @endif
+                                            @else
+                                                <img class="img-fluid w-100 mb-3 img-first" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">  
+                                            @endif
+                                        </a>
+                                    </div>
+                                    @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                    @endphp
+                                    @if($qty > 0)
+                                        <span class="onsale">Sale</span>
+                                    @else
+                                        <span class="offsale">Out Of Stock</span>
+                                    @endif
+                                    <div class="product-hover-overlay">
+                                        <a  title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
+                                            <i class="tf-ion-android-cart"></i>
+                                        </a>
+                                        <a title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
+                                            <i class="tf-ion-ios-heart"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h2 class="product-title h5 mb-0"><a href="{{route('product',$product->slug)}}">{{$product->name}}</a></h2>
+                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                            <del class="price">{{ home_base_price($product->id) }}</del>
+                                        @endif
+                                        <span class="price">{{ home_discounted_base_price($product->id) }}</span>
                                     </div>
                                 </div>
                             </div>

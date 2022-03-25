@@ -178,7 +178,7 @@
                                             </button>
                                         </span>
                                         <input type="text" name="quantity" class="form-control input-number text-center"
-                                               placeholder="1" value="0" min="1" max="10">
+                                               placeholder="1" value="1" min="1" max="10">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity" style="border: none;
@@ -218,19 +218,19 @@
                         @if ($product->digital == 1)
                             <button type="button"
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
-                                    onclick="addToCart()">
+                                    onclick="addToCart()" style="background-color: #FF6A00">
                                 <i class="la la-shopping-cart"></i>
                                 <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
                             </button>
                         @elseif($qty > 0)
                             <button type="button"
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
-                                    onclick="addToCart()">
+                                    onclick="addToCart()" style="background-color: #FF6A00">
                                 <i class="la la-shopping-cart"></i>
                                 <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
                             </button>
                         @else
-                            <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
+                            <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled style="background-color: #FF6A00">
                                 <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
                             </button>
                         @endif
