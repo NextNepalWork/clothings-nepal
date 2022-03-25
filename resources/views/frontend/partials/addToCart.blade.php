@@ -4,20 +4,31 @@
             <div class="product-gal sticky-top d-flex flex-row-reverse">
                 @if(is_array(json_decode($product->photos)) && count(json_decode($product->photos)) > 0)
                     <div class="product-gal-img">
-                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"
-                             src="{{ asset('frontend/images/placeholder.jpg') }}"
-                             data-src="{{ asset(json_decode($product->photos)[0]) }}"
-                             xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
+                        @if(!empty(json_decode($product->photos)[0]))
+                            @if (file_exists(json_decode($product->photos)[0]))  
+                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
+                            @else
+                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"/>
+                                
+                            @endif
+                        @else
+                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"/>
+
+                        @endif
                     </div>
                     <div class="product-gal-thumb">
                         <div class="xzoom-thumbs">
                             @foreach (json_decode($product->photos) as $key => $photo)
                                 <a href="{{ asset($photo) }}">
-                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}"
-                                         class="xzoom-gallery lazyload"
-                                         src="{{ asset('frontend/images/placeholder.jpg') }}" width="80"
-                                         data-src="{{ asset($photo) }}"
-                                         @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                    @if (!empty($photo))
+                                        @if (file_exists($photo))
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}" @if($key == 0) xpreview="{{ asset($photo) }}" @endif> 
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                    @endif
                                 </a>
                             @endforeach
                         </div>
@@ -213,30 +224,33 @@
                 </form>
 
                 <div class="d-table width-100 mt-3">
-                    <div class="d-table-cell">
+                    <div class="d-flex justify-content-between">
                         <!-- Add to cart button -->
                         @if ($product->digital == 1)
                             <button type="button"
-                                    class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
-                                    onclick="addToCart()" style="background-color: #FF6A00">
-                                <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
-                            </button>
-                        @elseif($qty > 0)
-                            <button type="button"
-                                    class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
-                                    onclick="addToCart()" style="background-color: #FF6A00">
+                                    class="btn btn-main mb-3 py-2 px-3 add-to-cart"
+                                    onclick="addToCart()">
                                 <i class="la la-shopping-cart"></i>
                                 <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
                             </button>
                         @else
-                            <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled style="background-color: #FF6A00">
-                                <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
-                            </button>
+                            @if($qty > 0)
+                                <button type="button"
+                                        class="btn btn-main mb-3 py-2 px-3 add-to-cart"
+                                        onclick="addToCart()">
+                                    <i class="la la-shopping-cart"></i>
+                                    <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                </button>
+                                <button type="button" class="btn btn-main mb-3 py-2 px-3" onclick="buyNow()">
+                                    <i class="la la-shopping-cart"></i> Buy Now
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-main mb-3 py-2 px-3" disabled>
+                                    <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
+                                </button>
+                            @endif
                         @endif
-                        <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now px-2 font-weight-light" onclick="buyNow()">
-                                            <i class="la la-shopping-cart"></i> Buy Now
-                                        </button>
+
                     </div>
                 </div>
 

@@ -6,7 +6,15 @@
     <div class="product-box">
         <div class="block">
             <div class="block-image">
-                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" class="lazyload" alt="Product Image">
+                @if (!empty(json_decode($product->photos)[0]))
+                    @if (file_exists(json_decode($product->photos)[0]))
+                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" class="lazyload" alt="{{$product->name}}">
+                    @else
+                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="lazyload" alt="{{$product->name}}">
+                    @endif
+                @else
+                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="lazyload" alt="{{$product->name}}">
+                @endif
             </div>
             <div class="block-body">
                 <h6 class="strong-600">
@@ -27,8 +35,8 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <button class="btn btn-styled btn-base-1 btn-outline mb-3 mb-sm-0" data-dismiss="modal">{{__('Back to shopping')}}</button>
-        <a href="{{ route('cart') }}" class="btn btn-styled btn-base-1 mb-3 mb-sm-0">{{__('Proceed to Checkout')}}</a>
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-main mb-3 py-2 px-3" data-dismiss="modal">{{__('Back to shopping')}}</button>
+        <a href="{{ route('cart') }}" class="btn btn-main mb-3 py-2 px-3">{{__('Proceed to Checkout')}}</a>
     </div>
 </div>
