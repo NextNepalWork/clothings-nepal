@@ -91,7 +91,7 @@
     </section>
 @endif --}}
 
-
+{{-- asdfasdfasd --}}
 <div class="widget-featured-entries mt-5 mt-lg-0">
     <h4 class="mb-4 pb-3">Best Selling</h4>
     @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(5)->get() as $key => $product)
