@@ -153,7 +153,7 @@
                         <div class="form-group flex-grow-1">
                             <div class="form-control bg-gray w-100">{{ \App\Coupon::find(Session::get('coupon_id'))->code }}</div>
                         </div>
-                        <button type="submit" class="btn btn-base-1">{{__('Change Coupon')}}</button>
+                        <button type="submit" class="btn btn-main mb-3 py-2 px-3">{{__('Change Coupon')}}</button>
                     </form>
                 </div>
             @else
@@ -163,7 +163,7 @@
                         <div class="form-group flex-grow-1">
                             <input type="text" class="form-control w-100" name="code" placeholder="{{__('Have coupon code? Enter here')}}" required>
                         </div>
-                        <button type="submit" class="btn btn-base-1">{{__('Apply')}}</button>
+                        <button type="submit" class="btn btn-main mb-3 py-2 px-3">{{__('Apply')}}</button>
                     </form>
                 </div>
             @endif
