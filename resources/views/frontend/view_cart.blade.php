@@ -1,8 +1,92 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">Cart</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('cart')}}">Cart</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <section class="slice-xs sct-color-2 border-bottom">
+<section id="order_list_top" class="py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-2 col-4  text-center ">
+          {{-- <a href="cart.html"> --}}
+            <div class="img_order_list ">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/cart.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img ">
+                <h6 class="active-item"> 1.My Cart</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="shipping.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/map.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 2.Shipping Info</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="delivery.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/delivery_new.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 3. Delivery Info</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="payment.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/payment.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 4. Payment</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="order-success.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/confirmation.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 5.Confirmation</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+      </div>
+    </div>
+</section>
+    {{-- <section class="slice-xs sct-color-2 border-bottom">
         <div class="container container-sm">
             <div class="row cols-delimited justify-content-center">
                 <div class="col">
@@ -61,7 +145,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     <section class="py-4 gry-bg" id="cart-summary">
@@ -123,13 +207,13 @@
                                                     @if($cartItem['digital'] != 1)
                                                         <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
                                                             <span class="input-group-btn">
-                                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                                <button class="btn btn-number px-0" type="button" data-type="minus" data-field="quantity[{{ $key }}]" style="border:none">
                                                                     <i class="la la-minus"></i>
                                                                 </button>
                                                             </span>
-                                                                <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
+                                                                <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)" style="border:none">
                                                                 <span class="input-group-btn">
-                                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                                <button class="btn btn-number px-0" type="button" data-type="plus" data-field="quantity[{{ $key }}]" style="border:none">
                                                                     <i class="la la-plus"></i>
                                                                 </button>
                                                             </span>
@@ -160,9 +244,9 @@
                             </div>
                             <div class="col-md-6 text-right">
                                 @if(Auth::check())
-                                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
+                                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-main mb-3 py-2 px-3">{{__('Continue to Shipping')}}</a>
                                 @else
-                                    <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
+                                    <button class="btn btn-main mb-3 py-2 px-3" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
                                 @endif
                             </div>
                         </div>
@@ -219,7 +303,7 @@
                                     <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1 px-4">{{__('Sign in')}}</button>
+                                    <button type="submit" class="btn btn-main mb-3 py-2 px-3 px-4">{{__('Sign in')}}</button>
                                 </div>
                             </div>
                         </form>
@@ -257,7 +341,7 @@
                             <span>or</span>
                         </div>
                         <div class="text-center">
-                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Guest Checkout')}}</a>
+                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-main mb-3 py-2 px-3">{{__('Guest Checkout')}}</a>
                         </div>
                     @endif
                 </div>

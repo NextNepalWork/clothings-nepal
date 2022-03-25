@@ -3,7 +3,92 @@
 @section('content')
 
     <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
+        <section class="page-header">
+            <div class="overly"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="content text-center">
+                            <h1 class="mb-3">Cart</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb bg-transparent justify-content-center">
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><a href="{{route('cart')}}">Cart</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="order_list_top" class="py-4">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-md-2 col-4  text-center ">
+                  {{-- <a href="cart.html"> --}}
+                    <div class="img_order_list ">
+                      <div class="img_block_icon">
+                        <img src="{{asset('frontend/assets/images/cart/cart.svg')}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="content_img ">
+                        <h6 class=""> 1.My Cart</h6>
+                      </div>
+                    </div>
+                  {{-- </a> --}}
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                  {{-- <a href="shipping.html"> --}}
+                    <div class="img_order_list">
+                      <div class="img_block_icon">
+                        <img src="{{asset('frontend/assets/images/cart/map.svg')}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="content_img">
+                        <h6 class="active-item"> 2.Shipping Info</h6>
+                      </div>
+                    </div>
+                  {{-- </a> --}}
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                  {{-- <a href="delivery.html"> --}}
+                    <div class="img_order_list">
+                      <div class="img_block_icon">
+                        <img src="{{asset('frontend/assets/images/cart/delivery_new.svg')}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="content_img">
+                        <h6 class=""> 3. Delivery Info</h6>
+                      </div>
+                    </div>
+                  {{-- </a> --}}
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                  {{-- <a href="payment.html"> --}}
+                    <div class="img_order_list">
+                      <div class="img_block_icon">
+                        <img src="{{asset('frontend/assets/images/cart/payment.svg')}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="content_img">
+                        <h6 class=""> 4. Payment</h6>
+                      </div>
+                    </div>
+                  {{-- </a> --}}
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                  {{-- <a href="order-success.html"> --}}
+                    <div class="img_order_list">
+                      <div class="img_block_icon">
+                        <img src="{{asset('frontend/assets/images/cart/confirmation.svg')}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="content_img">
+                        <h6 class=""> 5.Confirmation</h6>
+                      </div>
+                    </div>
+                  {{-- </a> --}}
+                </div>
+              </div>
+            </div>
+        </section>
+        {{-- <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
                     <div class="col">
@@ -62,18 +147,18 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
-        <section class="py-4 gry-bg">
+        <section class="py-4 gry-bg" id="cart_user">
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-8">
                         <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_shipping_infostore') }}" role="form" method="POST">
                             @csrf
                                 @if(Auth::check())
-                                    <div class="row gutters-5">
+                                    <div class="row gutters-5" id="shipping">
                                         @foreach (Auth::user()->addresses as $key => $address)
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <label class="aiz-megabox d-block bg-white">
                                                     <input type="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default)
                                                         checked
@@ -104,7 +189,21 @@
                                                         </span>
                                                     </span>
                                                 </label>
-                                            </div>
+                                            </div> --}}
+                                            <div class="col-md-6">
+                                                <label class="active card bg-white p-3 ">
+                                                  <input name="address_id" class="radio" type="radio" value="{{ $address->id }}" @if ($address->set_default)
+                                                  checked
+                                              @endif required>
+                                                  <span class="plan-details">
+                                                    <span class="plan-type d-block">Address: <span class="right_bold">{{ $address->address }}</span> </span>
+                                                    <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span>
+                                                    <span class="plan-type d-block">City:<span class="right_bold">{{ $address->city }}</span> </span>
+                                                    <span class="plan-type d-block">Country: <span class="right_bold">{{ $address->country }}</span> </span>
+                                                    <span class="plan-type d-block">Phone: <span class="right_bold">{{ $address->phone }}</span> </span>
+                                                  </span>
+                                                </label>
+                                              </div>
                                         @endforeach
                                         <input type="hidden" name="checkout_type" value="logged">
                                         <div class="col-md-6 mx-auto" onclick="add_new_address()">
@@ -183,13 +282,13 @@
                                 @endif
                             <div class="row align-items-center pt-4">
                                 <div class="col-md-6">
-                                    <a href="{{ route('home') }}" class="link link--style-3">
+                                    <a href="{{ route('home') }}" class="la la-mail-reply">
                                         <i class="ion-android-arrow-back"></i>
                                         {{__('Return to shop')}}
                                     </a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1">{{__('Continue to Delivery Info')}}</a>
+                                    <button type="submit" class="btn btn-main mb-3 py-2 px-3">{{__('Continue to Delivery Info')}}</a>
                                 </div>
                             </div>
                         </form>
@@ -265,7 +364,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-base-1">{{ __('Save') }}</button>
+                    <button type="submit" class="btn btn-main mb-3 py-2 px-3">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>

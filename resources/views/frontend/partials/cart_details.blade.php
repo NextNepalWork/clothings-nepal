@@ -47,13 +47,13 @@
                                         <td class="product-quantity d-none d-md-table-cell">
                                             <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                    <button class="btn btn-number px-0" type="button" data-type="minus" data-field="quantity[{{ $key }}]" style="border:none">
                                                         <i class="la la-minus"></i>
                                                     </button>
                                                 </span>
-                                                <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
+                                                <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)" style="border:none">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                    <button class="btn btn-number px-0" type="button" data-type="plus" data-field="quantity[{{ $key }}]" style="border:none">
                                                         <i class="la la-plus"></i>
                                                     </button>
                                                 </span>
@@ -77,15 +77,15 @@
                 <div class="row align-items-center pt-4">
                     <div class="col-6">
                         <a href="{{ route('home') }}" class="link link--style-3">
-                            <i class="ion-android-arrow-back"></i>
+                            <i class="la la-mail-reply"></i>
                             {{__('Return to shop')}}
                         </a>
                     </div>
                     <div class="col-6 text-right">
                         @if(Auth::check())
-                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
+                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-main mb-3 py-2 px-3">{{__('Continue to Shipping')}}</a>
                         @else
-                            <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
+                            <button class="btn btn-main mb-3 py-2 px-3" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
                         @endif
                     </div>
                 </div>
