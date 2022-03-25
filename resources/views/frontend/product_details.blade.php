@@ -170,7 +170,7 @@
                                 <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" disabled="disabled">
                                     <i class="fa fa-minus"></i>
                                 </button>
-                                <input type="text" name="quantity" class="form-control input-number text-center" placeholder="1" value="0" min="1" max="10" style="width:100px !important">
+                                <input type="text" name="quantity" class="form-control input-number text-center" placeholder="1" value="1" min="1" max="10" style="width:100px !important">
                                 <button class="btn btn-number pl-3" type="button" data-type="plus" data-field="quantity">
                                     <i class="fa fa-plus"></i>
                                 </button>
