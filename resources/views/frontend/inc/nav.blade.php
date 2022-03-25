@@ -19,12 +19,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
-                {{-- @php
-                    $about=\App\Page::first();
-                    {{route('custom-pages.show_custom_page',$about->slug)}}
-                @endphp --}}
+                @php
+                    $about=\App\Page::where('slug','test')->first();
+                @endphp
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    
+                    <a class="nav-link" href="{{route('custom-pages.show_custom_page',$about->slug)}}">About Us</a>
                 </li>
                 <!-- Pages -->
                 <li class="nav-item dropdown dropdown-slide">
@@ -166,7 +166,7 @@
             <li class="dropdown cart-nav dropdown-slide list-inline-item">
                 <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
                     <i class="tf-ion-ios-person mr-3"></i></a>
-                <ul class="dropdown-menu cart-dropdown p-2">
+                <ul class="dropdown-menu cart-dropdown p-2" style="width:200px !important">
                     @auth
                     <li><a href="{{ route('dashboard') }}">{{__('My Profile')}}</a></li>
                     <li><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
