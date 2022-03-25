@@ -2737,3 +2737,10 @@ span .inactive{
 .c-rating>input:checked~label:hover~label {
   color: #ffcc00;
 }
+
+
+.add-to-cart:hover{
+  background: transparent ;
+  border-color: #FF6A00 ;
+  color: #424251 !important;
+}
