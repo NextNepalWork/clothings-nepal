@@ -20,7 +20,14 @@
                     <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
                 @php
-                    $about=\App\Page::where('slug','test')->first();
+                    $about=\App\Page::where('slug','about')->first();
+                    if ($about == null) {
+                        $about = new \App\Page();
+                        $about->title='About';
+                        $about->slug='about';
+                        $about->content='content';
+                        $about->save();
+                    }
                 @endphp
                 <li class="nav-item">
                     
@@ -85,7 +92,7 @@
                     </ul>
                 </li><!-- / Account --> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact Us</a>
+                    <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
                 </li>
             </ul>
         </div>

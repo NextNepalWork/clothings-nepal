@@ -24,6 +24,7 @@ use App\BusinessSetting;
 use App\Coupon;
 use App\Http\Controllers\SearchController;
 use App\Location;
+use App\Models\GeneralSetting;
 use App\State;
 use ImageOptimizer;
 use Cookie;
@@ -753,5 +754,10 @@ class HomeController extends Controller
     public function flash_deals(){
         $flash_deals=FlashDeal::where('status',1)->get();
         return view('frontend.flashdeals',compact('flash_deals'));
+    }
+
+    public function contact(){
+        $info=GeneralSetting::first();
+        return view('frontend.contact',compact('info'));
     }
 }

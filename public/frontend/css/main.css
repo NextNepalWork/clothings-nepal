@@ -2812,11 +2812,11 @@ ul.seller-brand-list .brand-item {
 
 .typed-search-box {
     position: absolute;
-    top: 100%;
+    /* top: 100%; */
     border: 1px solid #eceff1;
     box-shadow: 0 5px 25px 0 rgba(123, 123, 123, 0.15);
     background: #fff;
-    width: calc(100% - 48px);
+    width: calc(100% - 240px);
     height: auto;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
