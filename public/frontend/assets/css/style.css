@@ -1008,6 +1008,10 @@ a.text-primary:hover {
   opacity: 1;
   -webkit-transition: .2s linear;
   transition: .2s linear;
+  max-height: 250px;
+  min-height: 250px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .img-second {
