@@ -1,11 +1,96 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="content text-center">
+                    <h1 class="mb-3">Cart</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent justify-content-center">
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('cart')}}">Cart</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="order_list_top" class="py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-2 col-4  text-center ">
+          {{-- <a href="cart.html"> --}}
+            <div class="img_order_list ">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/cart.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img ">
+                <h6 class=""> 1.My Cart</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="shipping.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/map.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 2.Shipping Info</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="delivery.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/delivery_new.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class=""> 3. Delivery Info</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="payment.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/payment.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class="active-item"> 4. Payment</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+        <div class="col-md-2 col-4  text-center">
+          {{-- <a href="order-success.html"> --}}
+            <div class="img_order_list">
+              <div class="img_block_icon">
+                <img src="{{asset('frontend/assets/images/cart/confirmation.svg')}}" class="img-fluid" alt="">
+              </div>
+              <div class="content_img">
+                <h6 class="active-item"> 5.Confirmation</h6>
+              </div>
+            </div>
+          {{-- </a> --}}
+        </div>
+      </div>
+    </div>
+</section>
     @php
         $status = $order->orderDetails->first()->delivery_status;
     @endphp
     <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
+        {{-- <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
                     <div class="col">
@@ -64,7 +149,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="py-4">
             <div class="container">
                 <div class="row">
