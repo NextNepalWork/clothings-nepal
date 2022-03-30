@@ -2,22 +2,23 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{__('Slider Information')}}</h3>
     </div>
-
     <!--Horizontal Form-->
     <!--===================================================-->
-    <form class="form-horizontal" action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{ route('sliders.update',$slider->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="_method" value="PATCH">
+
         <div class="panel-body">
             <div class="form-group">
                 <label class="col-sm-3" for="url">{{__('URL')}}</label>
                 <div class="col-sm-9">
-                    <input type="text" id="url" name="url" placeholder="http://example.com/" class="form-control" required>
+                    <input type="text" id="url" name="url" placeholder="http://example.com/" class="form-control" value="{{old('url',$slider->link)}}" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3" for="slider text">{{__('Slider Text')}}</label>
                 <div class="col-sm-9">
-                    <input type="text" id="slider_text" name="slider_text" maxlength="30" placeholder="" class="form-control">
+                    <input type="text" id="slider_text" name="slider_text" value="{{old('slider_text',$slider->slider_text)}}" maxlength="30" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -26,7 +27,16 @@
                     <strong>(850px*315px)</strong>
                 </div>
                 <div class="col-sm-9">
-                    <div id="photos">
+                    @if ($slider->photo != null)
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="img-upload-preview">
+                                <img loading="lazy"  src="{{ asset($slider->photo) }}" alt="" class="img-responsive">
+                                <input type="hidden" name="previous_photo" value="{{ $slider->photo }}">
+                                <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    @endif
+                    <div id="photo">
 
                     </div>
                 </div>
@@ -60,5 +70,31 @@
             }
         });
     });
+
+
+$(document).ready(function(){
+
+    $('.remove-files').on('click', function(){
+        $(this).parents(".col-md-4").remove();
+    });
+
+    $("#photo").spartanMultiImagePicker({
+        fieldName:        'photo',
+        maxCount:         1,
+        rowHeight:        '200px',
+        groupClassName:   'col-md-4 col-sm-9 col-xs-6',
+        maxFileSize:      '',
+        dropFileLabel : "Drop Here",
+        onExtensionErr : function(index, file){
+            console.log(index, file,  'extension err');
+            alert('Please only input png or jpg type file')
+        },
+        onSizeErr : function(index, file){
+            console.log(index, file,  'file size too big');
+            alert('File size too big');
+        }
+    });
+});
+
 
 </script>

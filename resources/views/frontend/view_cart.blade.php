@@ -191,7 +191,15 @@
                                             <tr class="cart-item">
                                                 <td class="product-image">
                                                     <a href="#" class="mr-3">
-                                                        <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}">
+                                                        @if (!empty($product->thumbnail_img))
+                                                            @if(file_exists($product->thumbnail_img))
+                                                                <img class="media-object img- mr-3" src="{{asset($product->thumbnail_img)}}" alt="{{$product->name}}">
+                                                            @else
+                                                                <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                                                            @endif
+                                                        @else
+                                                            <img class="media-object img- mr-3" src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$product->name}}">
+                                                        @endif
                                                     </a>
                                                 </td>
 

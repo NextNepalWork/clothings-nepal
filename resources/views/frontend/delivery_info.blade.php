@@ -187,7 +187,16 @@
                                                     <tr class="cart-item">
                                                         <td class="product-image" width="25%">
                                                             <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
-                                                                <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}">
+                                                                @if (!empty(\App\Product::find($id)->thumbnail_img))
+                                                                    @if (file_exists(\App\Product::find($id)->thumbnail_img))
+                                                                        <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}"> 
+                                                                    @else
+                                                                        <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                        
+                                                                    @endif
+                                                                @else
+                                                                    <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">  
+                                                                @endif
                                                             </a>
                                                         </td>
                                                         <td class="product-name strong-600">
@@ -257,7 +266,16 @@
                                                             <tr class="cart-item">
                                                                 <td class="product-image" width="25%">
                                                                     <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
-                                                                        <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}">
+                                                                        @if (!empty(\App\Product::find($id)->thumbnail_img))
+                                                                            @if (file_exists(\App\Product::find($id)->thumbnail_img))
+                                                                                <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}"> 
+                                                                            @else
+                                                                                <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                                
+                                                                            @endif
+                                                                        @else
+                                                                            <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">  
+                                                                        @endif
                                                                     </a>
                                                                 </td>
                                                                 <td class="product-name strong-600">
@@ -320,13 +338,13 @@
                             @endif
                             <div class="row align-items-center pt-4">
                                 <div class="col-md-6">
-                                    <a href="{{ route('home') }}" class="link link--style-3">
+                                    <a href="{{ route('home') }}" class="la la-mail-reply">
                                         <i class="ion-android-arrow-back"></i>
                                         {{__('Return to shop')}}
                                     </a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1">{{__('Continue to Payment')}}</a>
+                                    <button type="submit" class="btn btn-main btn-base-1">{{__('Continue to Payment')}}</a>
                                 </div>
                             </div>
                         </form>

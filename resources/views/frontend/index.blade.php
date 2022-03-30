@@ -11,6 +11,7 @@
                         <div class="slider-caption">
                             <span class="lead">Winter Collection Sale </span>
                             <h1 class="mt-2 mb-5"><span class="text-color">70% off </span>to everything</h1>
+                            {{-- <h1 class="mt-2 mb-5">{{$slider->slider_text}}</h1> --}}
                             <a href="{{$slider->link}}" class="btn btn-main">Shop Now</a>
                         </div>
                     </div>

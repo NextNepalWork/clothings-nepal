@@ -40,6 +40,7 @@
                                     <th>#</th>
                                     <th>{{__('Photo')}}</th>
                                     <th width="50%">{{__('Link')}}</th>
+                                    <th>{{__('Slider Text')}}</th>
                                     <th>{{__('Published')}}</th>
                                     <th width="10%">{{__('Options')}}</th>
                                 </tr>
@@ -50,6 +51,7 @@
                                         <td>{{$key+1}}</td>
                                         <td><img loading="lazy"  class="img-md" src="{{ asset($slider->photo)}}" alt="Slider Image"></td>
                                         <td>{{$slider->link}}</td>
+                                        <td width="40%">{{$slider->slider_text}}</td>
                                         <td><label class="switch">
                                             <input onchange="update_slider_published(this)" value="{{ $slider->id }}" type="checkbox" <?php if($slider->published == 1) echo "checked";?> >
                                             <span class="slider round"></span></label></td>
@@ -59,6 +61,7 @@
                                                     {{__('Actions')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a onclick="edit_slider({{$slider->id}})">{{__('Edit')}}</a></li>
                                                     <li><a onclick="confirm_modal('{{route('sliders.destroy', $slider->id)}}');">{{__('Delete')}}</a></li>
                                                 </ul>
                                             </div>
@@ -187,6 +190,14 @@
         });
     }
 
+    function edit_slider(id){
+        var url = '{{ route("sliders.edit", "slider_id") }}';
+        url = url.replace('slider_id', id);
+        $.get(url, {}, function(data){
+            $('#demo-lft-tab-1').html(data);
+        });
+    }
+
     function add_banner_1(){
         $.get('{{ route('home_banners.create', 1)}}', {}, function(data){
             $('#demo-lft-tab-2').html(data);
@@ -268,18 +279,16 @@
     }
 
     function update_slider_published(el){
+        // console.log('hi');
         if(el.checked){
             var status = 1;
         }
         else{
             var status = 0;
         }
-        var url = '{{ route('sliders.update', 'slider_id') }}';
-        url = url.replace('slider_id', el.value);
-
-        $.post(url, {_token:'{{ csrf_token() }}', status:status, _method:'PATCH'}, function(data){
+        $.post('{{ route('sliders.update_status') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
             if(data == 1){
-                showAlert('success', 'Published sliders updated successfully');
+                showAlert('success', 'Published slider status updated successfully');
             }
             else{
                 showAlert('danger', 'Something went wrong');
