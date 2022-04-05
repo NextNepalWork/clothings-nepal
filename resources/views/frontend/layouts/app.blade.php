@@ -645,6 +645,10 @@
     },900)//Threshold is 100ms
 
     });
+
+    // $(".navbar-toggler").click(function(){
+    //     $( ".account" ).removeClass( "d-none" )
+    // });
 </script>
 
 @yield('script')

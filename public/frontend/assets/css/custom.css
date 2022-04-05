@@ -70,8 +70,8 @@ h6.active-item {
 }
 
 .btn-width-custom:hover {
-    background: #ff6bff;
-    color: black;
+    background: #424251;
+    color: white;
     font-size: 2vw;
     padding: 1.5vw;
 }

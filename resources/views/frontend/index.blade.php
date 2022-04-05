@@ -11,7 +11,7 @@
                         <div class="slider-caption">
                             {{-- <span class="lead">Winter Collection Sale </span> --}}
                             {{-- <h1 class="mt-2 mb-5"><span class="text-color">70% off </span>to everything</h1> --}}
-                            <h1 class="pb-md-3 pb-1">{{$slider->slider_text}}</h1>
+                            <h1 class="pb-md-3 pb-1" style="color:#FF6A00">{{$slider->slider_text}}</h1>
                             <a href="{{$slider->link}}" class="btn-width-custom">Shop Now</a>
                         </div>
                     </div>
@@ -274,7 +274,11 @@
                 <div class="feature-block">
                     <i class="tf-wallet"></i>
                     <div class="content">
-                        <h5>30 Days Return</h5>
+                        @php
+                            $refund_time=\App\Models\BusinessSetting::where('type','refund_request_time')->first();
+                            // dd($refund_time);
+                        @endphp
+                        <h5>{{$refund_time->value}} Days Return</h5>
                         <p>Money back Guarantee</p>
                     </div>
                 </div>

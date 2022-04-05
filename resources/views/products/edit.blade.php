@@ -41,14 +41,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group" id="subsubcategory">
+                    {{-- <div class="form-group" id="subsubcategory">
                         <label class="col-lg-2 control-label">{{__('Sub Subcategory')}}</label>
                         <div class="col-lg-7">
                             <select class="form-control demo-select2-placeholder" name="subsubcategory_id" id="subsubcategory_id">
 
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group" id="brand">
                         <label class="col-lg-2 control-label">{{__('Brand')}}</label>
                         <div class="col-lg-7">
@@ -390,7 +390,7 @@
     				</div>
     			</div>
             @endif
-			<div class="panel">
+			{{-- <div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{__('PDF Specification')}}</h3>
 				</div>
@@ -402,7 +402,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 			<div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{__('SEO Meta Tags')}}</h3>
