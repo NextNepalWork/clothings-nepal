@@ -40,6 +40,7 @@ class SliderController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $slider = new Slider;
                 $slider->link = $request->url;
+                $slider->slider_text=$request->slider_text;
                 $slider->photo = $photo->store('uploads/sliders');
                 $slider->save();
             }
@@ -67,7 +68,8 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $slider = Slider::find($id);
+        return view('sliders.edit',compact('slider'));
     }
 
     /**
@@ -78,9 +80,35 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
-    {
+    // public function update(Request $request, $id)
+    // {
+    //     $slider = Slider::find($id);
+    //     $slider->published = $request->status;
+    //     if($slider->save()){
+    //         return '1';
+    //     }
+    //     else {
+    //         return '0';
+    //     }
+    // }
+
+
+    public function update(Request $request, $id){
         $slider = Slider::find($id);
+        $slider->photo = $request->previous_photo;
+        if($request->hasFile('photo')){
+            $slider->photo = $request->photo->store('uploads/sliders');
+        }
+        $slider->link = $request->url;
+        $slider->slider_text=$request->slider_text;
+        $slider->save();
+        flash(__('Slider has been updated successfully'))->success();
+        return redirect()->route('home_settings.index');
+    }
+     
+    public function update_status(Request $request)
+    {
+        $slider = Slider::find($request->id);
         $slider->published = $request->status;
         if($slider->save()){
             return '1';

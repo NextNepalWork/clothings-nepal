@@ -116,6 +116,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 
 	Route::group(['prefix' => 'frontend_settings'], function(){
 		Route::resource('sliders','SliderController');
+		Route::post('/sliders/update_status', 'SliderController@update_status')->name('sliders.update_status');
 	    Route::get('/sliders/destroy/{id}', 'SliderController@destroy')->name('sliders.destroy');
 
 		Route::resource('home_banners','BannerController');

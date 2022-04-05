@@ -405,14 +405,14 @@ class OrderController extends Controller
             //     }
             // }
 
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
-                try {
-                    $otpController = new OTPVerificationController;
-                    $otpController->send_order_code($order);
-                } catch (\Exception $e) {
+            // if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
+            //     try {
+            //         $otpController = new OTPVerificationController;
+            //         $otpController->send_order_code($order);
+            //     } catch (\Exception $e) {
 
-                }
-            }
+            //     }
+            // }
 
             //sends email to customer with the invoice pdf attached
             // dd(Config::get('mail.username') != null, $request->session()->get('shipping_info')['email']);
