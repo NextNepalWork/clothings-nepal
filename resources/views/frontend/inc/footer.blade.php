@@ -25,11 +25,13 @@
             </div>
             <div class="col-md-6 col-lg-2 col-sm-6 mb-5 mb-lg-0 text-center text-sm-left">
                 <div class="footer-widget">
-                    <h4 class="mb-4">Category</h4>
-                    <ul class="pl-0 list-unstyled mb-0">
-                        @foreach (\App\Category::where('top',1)->get() as $top_cat)  
-                            <li><a href="{{route('products.category', $top_cat->slug)}}">{{$top_cat->name}}</a></li>
-                        @endforeach
+                    <h4 class="mb-4">Quick Links</h4>
+                    <ul class="pl-0 list-unstyled mb-0"> 
+                        <li><a href="{{route('privacypolicy')}}">Privacy Policy</a></li>
+                        <li><a href="{{route('terms')}}">Terms and Conditions</a></li>
+                        <li><a href="{{route('sellerpolicy')}}">Seller Policy</a></li>
+                        <li><a href="{{route('supportpolicy')}}">Support</a></li>
+                        
                     </ul>
                 </div>
             </div>

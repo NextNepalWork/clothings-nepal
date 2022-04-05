@@ -1,4 +1,4 @@
-<div class="sidebar sidebar--style-3 no-border stickyfill p-0">
+{{-- <div class="sidebar sidebar--style-3 no-border stickyfill p-0">
     <div class="widget mb-0">
         <div class="widget-profile-box text-center p-3">
             @if (Auth::user()->avatar_original != null)
@@ -152,4 +152,45 @@
             </div>
         @endif
     </div>
-</div>
+</div> --}}
+
+@php
+$delivery_viewed = App\Order::where('user_id', Auth::user()->id)->where('delivery_viewed', 0)->get()->count();
+$payment_status_viewed = App\Order::where('user_id', Auth::user()->id)->where('payment_status_viewed', 0)->get()->count();
+$refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+$club_point_addon = \App\Addon::where('unique_identifier', 'club_point')->first();
+@endphp
+        <div class="col-lg-3 col-md-12 col-12">
+            <div class="widget-profile-box text-center p-3">
+                @if (Auth::user()->avatar_original != null)
+                    <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                @else
+                    <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+                @endif
+                <div class="name">{{ Auth::user()->name }}</div>
+            </div>
+            <div class="sidebar-widget-title py-3">
+                <span>{{__('Menu')}}</span>
+            </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link {{ areActiveRoutesHome(['dashboard'])}}" href="{{route('dashboard')}}">Dashboard</a>
+          </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link {{ areActiveRoutesHome(['purchase_history.index'])}}" href="{{ route('purchase_history.index') }}">Orders @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="ml-2" style="color:green"><strong>({{ __('New Notifications') }})</strong></span>@endif</a>
+          </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link {{ areActiveRoutesHome(['wishlists.index'])}}" href="{{ route('wishlists.index') }}">Wishlist</a>
+          </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link {{ areActiveRoutesHome(['profile'])}}" href="{{ route('profile') }}">Manage Profile</a>
+          </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link {{ areActiveRoutesHome(['support_ticket.index'])}}" href="{{ route('support_ticket.index') }}">Support Ticket</a>
+          </div>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link" href="{{route('logout')}}">Log Out</a>
+          </div>
+        </div>
+
+
+
