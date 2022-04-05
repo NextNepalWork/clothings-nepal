@@ -13,7 +13,7 @@
 				$seller_id=\App\OrderDetail::where('order_id',$order->id)->pluck('seller_id');
 				$admin_id=\App\User::where('user_type','admin')->pluck('id');
 			?>
-			@if ($seller_id==$admin_id)
+			{{-- @if ($seller_id==$admin_id) --}}
 				
             <div class="row">
                 @php
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <hr>
-			@endif
+			{{-- @endif --}}
 
     		<div class="invoice-bill row">
     			<div class="col-sm-6 text-xs-center">

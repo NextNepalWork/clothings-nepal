@@ -159,7 +159,12 @@ $delivery_viewed = App\Order::where('user_id', Auth::user()->id)->where('deliver
 $payment_status_viewed = App\Order::where('user_id', Auth::user()->id)->where('payment_status_viewed', 0)->get()->count();
 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 $club_point_addon = \App\Addon::where('unique_identifier', 'club_point')->first();
+$support_ticket = DB::table('tickets')
+            ->where('client_viewed', 0)
+            ->where('user_id', Auth::user()->id)
+            ->count();
 @endphp
+
         <div class="col-lg-3 col-md-12 col-12">
             <div class="widget-profile-box text-center p-3">
                 @if (Auth::user()->avatar_original != null)
@@ -185,7 +190,7 @@ $club_point_addon = \App\Addon::where('unique_identifier', 'club_point')->first(
             <a class="nav-link {{ areActiveRoutesHome(['profile'])}}" href="{{ route('profile') }}">Manage Profile</a>
           </div>
           <div class="nav flex-column nav-pills">
-            <a class="nav-link {{ areActiveRoutesHome(['support_ticket.index'])}}" href="{{ route('support_ticket.index') }}">Support Ticket</a>
+            <a class="nav-link {{ areActiveRoutesHome(['support_ticket.index','support_ticket.show'])}}" href="{{ route('support_ticket.index') }}">Support Ticket @if($support_ticket > 0)<span class="ml-2" style="color:green"><strong>({{ $support_ticket }} {{ __('New') }})</strong></span></span>@endif</a>
           </div>
           <div class="nav flex-column nav-pills">
             <a class="nav-link" href="{{route('logout')}}">Log Out</a>

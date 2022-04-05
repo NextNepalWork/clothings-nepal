@@ -72,6 +72,9 @@
 
 <!-- Global style (main) -->
 <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
+{{-- custom css --}}
+<link type="text/css" href="{{ asset('frontend/assets/css/custom.css') }}" rel="stylesheet" media="all">
+
 
 {{-- martin edit css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all"> --}}
