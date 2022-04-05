@@ -47,7 +47,7 @@
                             <input type="password" class="form-control mb-3" placeholder="{{__('Confirm Password')}}" name="confirm_password">
                           </div>
 
-                          <div class="form-group col-md-6 mb-2">
+                          <div class="form-group col-md-12 mb-2">
                             <label>Profile Picture</label>
                             <input type="file" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
                             <label for="file-3" class="mw-100 mb-3">

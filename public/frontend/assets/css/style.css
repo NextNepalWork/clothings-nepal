@@ -2417,7 +2417,7 @@ section#category_section .grid-container {
 }
 
 .dashboard-content .table {
-  width: 100%;
+  width: 990px;
 }
 
 .shopping-cart .shopping-cart-table .table>thead>tr>th {
