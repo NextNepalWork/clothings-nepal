@@ -9,7 +9,6 @@
 </div>
 
 <br>
-
 <!-- Basic Data Tables -->
 <!--===================================================-->
 <div class="panel">
@@ -34,7 +33,7 @@
                     <th>{{__('Banner')}}</th>
                     <th>{{__('Icon')}}</th>
                     <th>{{__('Featured')}}</th>
-                    <th>{{__('Commission')}}</th>
+                    {{-- <th>{{__('Commission')}}</th> --}}
                     <th width="10%">{{__('Options')}}</th>
                 </tr>
             </thead>
@@ -48,7 +47,7 @@
                         <td><label class="switch">
                             <input onchange="update_featured(this)" value="{{ $category->id }}" type="checkbox" <?php if($category->featured == 1) echo "checked";?> >
                             <span class="slider round"></span></label></td>
-                        <td>{{ $category->commision_rate }} %</td>
+                        {{-- <td>{{ $category->commision_rate }} %</td> --}}
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

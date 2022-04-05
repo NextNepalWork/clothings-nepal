@@ -291,7 +291,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if (Auth::check() && \App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
+                                    {{-- @if (Auth::check() && \App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                                         <div class="or or--1 mt-2">
                                             <span>or</span>
                                         </div>
@@ -308,7 +308,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
 
