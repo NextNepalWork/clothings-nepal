@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-styled btn-base-1">{{__('Track Order')}}</button>
+                                <button type="submit" class="btn btn-main btn-base-1">{{__('Track Order')}}</button>
                             </div>
                         </form>
                     </div>

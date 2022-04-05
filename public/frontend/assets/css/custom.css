@@ -68,3 +68,10 @@ h6.active-item {
 .dashboard-content .table thead th {
     font-weight: 600 !important;
 }
+
+.btn-width-custom:hover {
+    background: #424251;
+    color: white;
+    font-size: 2vw;
+    padding: 1.5vw;
+}

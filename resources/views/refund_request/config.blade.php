@@ -31,7 +31,7 @@
             </form>
         </div>
     </div>
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Set Refund Sticker')}}</h3>
@@ -54,7 +54,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 

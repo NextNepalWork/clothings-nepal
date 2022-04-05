@@ -19,6 +19,22 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Home </a>
                 </li>
+
+                @auth
+                    <li class="nav-item  d-lg-none d-block"><a class="nav-link" href="{{ route('dashboard') }}">{{__('My Panel')}}</a></li>
+                    <li class="nav-item  d-lg-none d-block"><a class="nav-link" href="{{ route('wishlists.index') }}">{{__('Wishlists')}}<sup class="nav-box-number" style="color:#FF6A00">({{ count(Auth::user()->wishlists) }})</sup></a></li>
+                    
+                @endauth
+                <li class="nav-item  d-lg-none d-block">
+                    <a href="{{route('cart')}}" class="nav-link"> Cart
+                        @if(Session::has('cart'))
+                        <sup class="nav-box-number" style="color:#FF6A00">({{ count(Session::get('cart'))}})</sup>
+                        @else
+                        <sup class="nav-box-number" style="color:#FF6A00">(0)</sup>
+                        @endif
+                    </a> 
+                </li>
+
                 @php
                     $about=\App\Page::where('slug','about')->first();
                     if ($about == null) {
@@ -73,27 +89,22 @@
                         <li><a href="cart.html">Cart</a></li>
                     </ul>
                 </li><!-- / Blog --> --}}
-                <!-- Account -->
-                {{-- <li class="nav-item dropdown dropdown-slide">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-delay="350"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown5">
-                        @auth
-                        <li><a href="{{ route('dashboard') }}">{{__('My Panel')}}</a></li>
-                        <li><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
-                        @else
-                        <li><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
-                        <li><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
-                        <li><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
-
-                        @endauth
-                    </ul>
-                </li><!-- / Account --> --}}
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
                 </li>
+
+                @auth
+                <li class="nav-item  d-lg-none d-block">
+                    <a class="nav-link" href="{{ route('logout') }}">{{__('Logout')}}</a>
+                </li>
+                @else
+                <li class="nav-item  d-lg-none d-block"><a class="nav-link" href="{{ route('user.login') }}">{{__('Login')}}</a></li>
+                <li class="nav-item  d-lg-none d-block"><a class="nav-link" href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
+                <li class="nav-item  d-lg-none d-block"><a class="nav-link" href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
+                @endauth
+                
+                
             </ul>
         </div>
         <!-- Navbar-collapse -->
@@ -173,15 +184,18 @@
             <li class="dropdown cart-nav dropdown-slide list-inline-item">
                 <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
                     <i class="tf-ion-ios-person mr-3"></i></a>
-                <ul class="dropdown-menu cart-dropdown p-2" style="width:200px !important">
+                <ul class="dropdown-menu cart-dropdown p-2" style="width:170px !important">
                     @auth
-                    <li><a href="{{ route('dashboard') }}">{{__('My Profile')}}</a></li>
-                    <li><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
+                    <li style="width:100%"><a href="{{ route('dashboard') }}">{{__('My Profile')}}</a></li>
+                    <li style="width:100%"><a href="{{ route('wishlists.index') }}">{{__('Wishlists')}} <span style="color:#FF6A00">({{ count(Auth::user()->wishlists) }})</span></a></li>
+                    <li style="width:100%"><a href="{{ route('logout') }}">{{__('Logout')}}</a></li>
                     @else
-                    <li><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
-                    <li><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
-                    <li><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
-
+                    <li style="width:100%"><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
+                    <li style="width:100%"><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
+                    <li style="width:100%"><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
+                    <li style="width:100%">
+                        <a href="{{ route('orders.track') }}">{{__('Track Order')}}</a>
+                    </li>
                     @endauth
                 </ul>
             </li>

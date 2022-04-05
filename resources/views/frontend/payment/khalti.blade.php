@@ -9,6 +9,7 @@
     
 @php
     $khalti=\App\BusinessSetting::where('type','khalti_payment')->where('value',1)->first();
+    // dd($khalti);
     // $type = '';
     // $order = [];
     if(Session::get('payment_type') == 'wallet_payment'){
