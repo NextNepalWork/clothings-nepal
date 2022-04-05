@@ -63,7 +63,8 @@
         <div class="contact-form col-lg-6 ">
             <h3 class="mb-4">Send us an Email:</h3>
 
-            <form id="contact-form" method="post" action="#">
+            <form id="contact-form" method="post" action="{{route('send-mail')}}">
+                @csrf
             <div class="row">
                 <div class="col-lg-6">
                 <div class="form-group">
@@ -87,7 +88,7 @@
 
                 <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" placeholder="Phone" class="form-control" name="Phone" id="phone">
+                    <input type="text" placeholder="Phone" class="form-control" name="phone" id="phone">
                 </div>
                 </div>
             </div>

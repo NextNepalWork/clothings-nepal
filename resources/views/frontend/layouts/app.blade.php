@@ -231,7 +231,7 @@
 	<!-- Instagram Feed Js -->
 	<script src="{{asset('frontend/assets/plugins/instafeed-js/instafeed.min.js')}}"></script>
 	<!-- Google Mapl -->
-	<script src="../maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	{{-- <script src="../maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script> --}}
 	<script src="{{asset('frontend/assets/plugins/google-map/gmap.js')}}"></script>
 	<script src="https://use.fontawesome.com/f90dcc1da9.js"></script>
 	<!-- Main Js File -->

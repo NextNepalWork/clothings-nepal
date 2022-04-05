@@ -292,6 +292,26 @@
             "hideMethod": "fadeOut"
         }
     </script>
+    <script>
+        function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+            }
+            swal({
+                position: 'center',
+                type: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+        
+    </script>
+    @foreach (session('flash_notification', collect())->toArray() as $message)
+    <script>
+        showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
+    </script>
+@endforeach
     @yield('script')
 
 </body>
