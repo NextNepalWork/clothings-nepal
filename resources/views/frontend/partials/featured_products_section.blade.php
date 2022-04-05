@@ -83,9 +83,9 @@
 
     <div class="media mb-3">
         <a class="featured-entry-thumb" href="{{ route('product', $product->slug) }}">
-            @if (!empty($product->thumbnail_img))
-                @if(file_exists($product->thumbnail))
-                    <img class="img-fluid mr-3" src="{{ asset($product->thumbnail_img) }}" width="64" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+            @if (!empty($product->featured_img))
+                @if(file_exists($product->featured_img))
+                    <img class="img-fluid mr-3" src="{{ asset($product->featured_img) }}" width="64" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                 @else
                     <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" width="64" class="img-fluid mr-3">
                 @endif
