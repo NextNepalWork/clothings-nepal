@@ -241,11 +241,11 @@
                                     <a class="nav-link" href="{{route('newsletters.index')}}">{{__('Newsletters')}}</a>
                                 </li>
 
-                                @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null)
+                                {{-- @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null)
                                     <li class="{{ areActiveRoutes(['sms.index'])}}">
                                         <a class="nav-link" href="{{route('sms.index')}}">{{__('SMS')}}</a>
                                     </li>
-                                @endif
+                                @endif --}}
                             </ul>
                         </li>
                         @endif
@@ -469,7 +469,7 @@
                             </li>
                         @endif
 
-                        @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-mobile"></i>
@@ -487,7 +487,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('13', json_decode(Auth::user()->staff->role->permissions)))
                             @php

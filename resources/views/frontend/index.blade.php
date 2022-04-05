@@ -135,7 +135,7 @@
                     <p class="text-md mt-3 text-white">Hurry up! Limited time offer.Grab ot now!</p>
                     <!-- syo-timer -->
                     <!-- <div id="simple-timer" class="syotimer mb-5"></div> -->
-                    <a href="{{$banner[0]->url}}" class="btn btn-main"><i class="ti-bag mr-2"></i>Shop Now </a>
+                    <a href="{{route('products')}}" class="btn btn-main"><i class="ti-bag mr-2"></i>Shop Now </a>
                 </div>
             </div>
         </div>

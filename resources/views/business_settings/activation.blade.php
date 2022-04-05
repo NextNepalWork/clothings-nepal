@@ -7,19 +7,6 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{__('Wallet System Activation')}}</h3>
-            </div>
-            <div class="panel-body text-center">
-                <label class="switch">
-                    <input type="checkbox" onchange="updateSettings(this, 'wallet_system')" <?php if(\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1) echo "checked";?>>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="panel">
-            <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Coupon System Activation')}}</h3>
             </div>
             <div class="panel-body text-center">
@@ -43,22 +30,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-4">
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title text-center">{{__('Conversation Activation')}}</h3>
-            </div>
-            <div class="panel-body text-center">
-                <label class="switch">
-                    <input type="checkbox" onchange="updateSettings(this, 'conversation_system')" <?php if(\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1) echo "checked";?>>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-        </div>
-    </div>
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
@@ -75,6 +46,23 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">{{__('Conversation Activation')}}</h3>
+            </div>
+            <div class="panel-body text-center">
+                <label class="switch">
+                    <input type="checkbox" onchange="updateSettings(this, 'conversation_system')" <?php if(\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1) echo "checked";?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <h3 class="text-center">{{__('Payment Related')}}</h3>
