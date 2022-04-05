@@ -764,7 +764,6 @@ class HomeController extends Controller
     }
 
     public function sendMail(Request $request){
-        // dd($request->all());
         $array['view'] = 'emails.newsletter';
         $array['subject'] = $request->subject;
         $array['phone'] = $request->phone;
@@ -773,7 +772,7 @@ class HomeController extends Controller
         try {
             Mail::to(User::where('user_type', 'admin')->first()->email)->send(new CustomerEmail($array));
         } catch (\Exception $e) {
-
+            flash($e->getMessage())->error();
         }
         flash("Message sent")->success();
         return redirect()->back()->with('success','Message sent');
