@@ -30,9 +30,7 @@
         <!-- Contact Details -->
         <div class="contact-details col-md-6">
             <h3 class="mb-4">Our Company</h3>
-            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quo quia cupiditate, dolore
-            possimus quidem maxime, neque beatae. Fuga maxime quos recusandae ratione earum atque, quam sunt dolorem
-            illum dolor.</p>
+            <p class="mb-5">{{$info->description}}</p>
 
             <div class="row">
             <div class="col-lg-6 mb-5 mb-lg-0">
