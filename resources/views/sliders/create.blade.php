@@ -15,7 +15,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3" for="slider text">{{__('Slider Text')}}</label>
+                <div class="col-sm-3">
+                    <label class="control-label" for="slider text">{{__('Slider Text')}}</label>
+                    <strong>(Max length 30)</strong>
+                </div>
                 <div class="col-sm-9">
                     <input type="text" id="slider_text" name="slider_text" maxlength="30" placeholder="" class="form-control">
                 </div>

@@ -13,10 +13,10 @@
                         <div class="product-box-2 bg-white alt-box my-2">
                             <div class="position-relative overflow-hidden">
                                 <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                    @if (empty($product->featured_img))
+                                    @if (empty($product->thumbnail_img))
                                         <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                     @else
-                                        <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                     @endif
                                 </a>
                                 @php
@@ -83,9 +83,9 @@
 
     <div class="media mb-3">
         <a class="featured-entry-thumb" href="{{ route('product', $product->slug) }}">
-            @if (!empty($product->featured_img))
-                @if(file_exists($product->featured_img))
-                    <img class="img-fluid mr-3" src="{{ asset($product->featured_img) }}" width="64" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+            @if (!empty($product->thumbnail_img))
+                @if(file_exists($product->thumbnail_img))
+                    <img class="img-fluid mr-3" src="{{ asset($product->thumbnail_img) }}" width="64" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                 @else
                     <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}" width="64" class="img-fluid mr-3">
                 @endif
