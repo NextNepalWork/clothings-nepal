@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seller extends Model
 {
+  protected $fillable = ['admin_to_pay'];
   public function user(){
   	return $this->belongsTo(User::class);
   }

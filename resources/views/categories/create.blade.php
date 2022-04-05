@@ -52,7 +52,7 @@
                         <textarea name="meta_description" rows="8" class="form-control"></textarea>
                     </div>
                 </div>
-                @if (\App\BusinessSetting::where('type', 'category_wise_commission')->first()->value == 1)
+                {{-- @if (\App\BusinessSetting::where('type', 'category_wise_commission')->first()->value == 1)
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="name">{{__('Commission Rate')}}</label>
                         <div class="col-sm-8">
@@ -61,7 +61,7 @@
                         <div class="col-lg-2">
                             <option class="form-control">%</option>
                         </div>
-                @endif
+                @endif --}}
             </div>
             <div class="panel-footer text-right">
                 <button class="btn btn-purple" type="submit">{{__('Save')}}</button>

@@ -64,7 +64,7 @@ Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('fla
 Route::get('/flash-deals','HomeController@flash_deals')->name('flash-deals');
 
 Route::get('/contact-us','HomeController@contact')->name('contact');
-
+Route::post('/send-mail','HomeController@sendMail')->name('send-mail');
 
 //location
 Route::resource('locations','LocationController');
