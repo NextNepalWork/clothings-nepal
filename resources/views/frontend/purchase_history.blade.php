@@ -25,7 +25,7 @@
       <div class="row">
         @include('frontend.inc.customer_side_nav')
                 <div class="col-lg-9 col-md-12 col-12 mt-lg-0 mt-3">
-                    <div class="main-content card">
+                    <div class="dashboard-content">
                         <!-- Page title -->
                         <div class="page-title">
                             <div class="row align-items-center">
