@@ -33,7 +33,7 @@
 @endsection
 
 @section('content')
-
+{{-- {{dd($detailedProduct)}} --}}
 <section class="page-header">
     <div class="overly"></div>
     <div class="container">
@@ -44,6 +44,25 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent justify-content-center">
                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                            @if(isset($detailedProduct->category))
+                                @php
+                                    $category = \App\Category::find($detailedProduct->category_id);                                    
+                                @endphp
+                                <li class="breadcrumb-item active"><a href="{{ route('products.category', $category->slug) }}">{{ $category->name }}</a></li>
+                            @endif
+                            @if(isset($detailedProduct->subcategory))
+                                @php
+                                    $subcategory = \App\SubCategory::find($detailedProduct->subcategory_id);                                    
+                                @endphp
+                                <li class="breadcrumb-item active"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ $subcategory->name }}</a></li>
+                            @endif
+                            @if(isset($detailedProduct->subsubcategory))
+                                @php
+                                    $subsubcategory = \App\SubSubCategory::find($detailedProduct->subsubcategory_id);                                    
+                                @endphp
+                                <li class="breadcrumb-item active"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ $subsubcategory->name }}</a></li>
+                            @endif
+                            
                             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('product',$detailedProduct->slug)}}">{{$detailedProduct->name}}</a></li>
                         </ol>
                     </nav>
@@ -87,7 +106,7 @@
                         </div>
                         <ol class="carousel-indicators">
                             @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                <li data-target="#single-product-slider" data-slide-to="0" class="{{ $loop->first ? 'active' : '' }}" style="width:150px; height:150px;">
+                                <li data-target="#single-product-slider" data-slide-to="{{$key}}" class="{{ $loop->first ? 'active' : '' }}" style="width:150px; height:150px;">
                                     @if (file_exists($photo))
                                         <img src="{{asset($photo)}}" alt="{{$detailedProduct->name}}" class="img-fluid">
                                     @else
@@ -302,41 +321,44 @@
                                         @endphp
                                     @endif
                                 @endforeach
-                                {{-- @if ($commentable) --}}
-                                <div class="col-lg-5">
-                                    <div class="review-comment mt-5 mt-lg-0">
-                                        <h4 class="mb-3">Add a Review</h4>
-                                        <form role="form" action="{{ route('reviews.store') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $detailedProduct->id }}">
-                                            <div class="c-rating mt-1 mb-1 clearfix d-inline-block">
-                                                <input type="radio" id="star1" name="rating" value="1" required/>
-                                                <label class="tf-ion-android-star" for="star1" title="Bad" aria-hidden="true"></label>
-                                                <input type="radio" id="star2" name="rating" value="2" required/>
-                                                <label class="tf-ion-android-star" for="star2" title="Good" aria-hidden="true"></label>
-                                                <input type="radio" id="star3" name="rating" value="3" required/>
-                                                <label class="tf-ion-android-star" for="star3" title="Very good" aria-hidden="true"></label>
-                                                <input type="radio" id="star4" name="rating" value="4" required/>
-                                                <label class="tf-ion-android-star" for="star4" title="Great" aria-hidden="true"></label>
-                                                <input type="radio" id="star5" name="rating" value="5" required/>
-                                                <label class="tf-ion-android-star" for="star5" title="Awesome" aria-hidden="true"></label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control" disabled required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="email" value="{{ Auth::user()->email }}" class="form-control" required disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="4" name="comment" placeholder="{{__('Your review')}}" required></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-main btn-small">
-                                                {{__('Send review')}}
-                                            </button>
-                                        </form>
+                                @if ($commentable)
+                                    <div class="col-lg-5">
+                                        <div class="review-comment mt-5 mt-lg-0">
+                                            <h4 class="mb-3">Add a Review</h4>
+                                            <form role="form" action="{{ route('reviews.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $detailedProduct->id }}">
+                                                <div class="c-rating mt-1 mb-1 clearfix d-inline-block">
+                                                    <input type="radio" id="star1" name="rating" value="1" required/>
+                                                    <label class="tf-ion-android-star" for="star1" title="Bad" aria-hidden="true"></label>
+                                                    <input type="radio" id="star2" name="rating" value="2" required/>
+                                                    <label class="tf-ion-android-star" for="star2" title="Good" aria-hidden="true"></label>
+                                                    <input type="radio" id="star3" name="rating" value="3" required/>
+                                                    <label class="tf-ion-android-star" for="star3" title="Very good" aria-hidden="true"></label>
+                                                    <input type="radio" id="star4" name="rating" value="4" required/>
+                                                    <label class="tf-ion-android-star" for="star4" title="Great" aria-hidden="true"></label>
+                                                    <input type="radio" id="star5" name="rating" value="5" required/>
+                                                    <label class="tf-ion-android-star" for="star5" title="Awesome" aria-hidden="true"></label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="email" value="{{ Auth::user()->email }}" class="form-control" required disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" name="comment" placeholder="{{__('Your review')}}" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-main btn-small">
+                                                    {{__('Send review')}}
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                <p>You need to buy product to give review.</p>
                                 @endif
+                            @endif
                             {{-- @endifs --}}
                         </div>
                     </div>

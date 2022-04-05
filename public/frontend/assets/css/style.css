@@ -2417,7 +2417,7 @@ section#category_section .grid-container {
 }
 
 .dashboard-content .table {
-  width: 990px;
+  width: 100%;
 }
 
 .shopping-cart .shopping-cart-table .table>thead>tr>th {
@@ -2721,3 +2721,5 @@ span .inactive{
   border-color: #FF6A00 ;
   color: #424251 !important;
 }
+
+
