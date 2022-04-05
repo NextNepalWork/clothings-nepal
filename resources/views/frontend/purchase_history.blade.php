@@ -2,19 +2,30 @@
 
 @section('content')
 
-    <section class="gry-bg py-4 profile">
-        <div class="container">
-            <div class="row cols-xs-space cols-sm-space cols-md-space">
-                <div class="col-lg-3 d-none d-lg-block">
-                    @if(Auth::user()->user_type == 'seller')
-                        @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer')
-                        @include('frontend.inc.customer_side_nav')
-                    @endif
-                </div>
-
-                <div class="col-lg-9">
-                    <div class="main-content">
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="content text-center">
+            <h1 class="mb-3">Dashboard</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent justify-content-center">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('purchase_history.index')}}"></a> Orders</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="user-dashboard page-wrapper">
+    <div class="container">
+      <div class="row">
+        @include('frontend.inc.customer_side_nav')
+                <div class="col-lg-9 col-md-12 col-12 mt-lg-0 mt-3">
+                    <div class="main-content card">
                         <!-- Page title -->
                         <div class="page-title">
                             <div class="row align-items-center">
@@ -23,7 +34,7 @@
                                         {{__('Purchase History')}}
                                     </h2>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="float-md-right">
                                         <ul class="breadcrumb">
                                             <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
@@ -31,7 +42,7 @@
                                             <li class="active"><a href="{{ route('purchase_history.index') }}">{{__('Purchase History')}}</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

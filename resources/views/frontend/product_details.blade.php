@@ -302,7 +302,7 @@
                                         @endphp
                                     @endif
                                 @endforeach
-                                @if ($commentable)
+                                {{-- @if ($commentable) --}}
                                 <div class="col-lg-5">
                                     <div class="review-comment mt-5 mt-lg-0">
                                         <h4 class="mb-3">Add a Review</h4>
@@ -337,7 +337,7 @@
                                     </div>
                                 </div>
                                 @endif
-                            @endif
+                            {{-- @endifs --}}
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="gry-bg py-4 profile">
+    {{-- <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-lg-3 d-none d-lg-block">
@@ -241,6 +241,120 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+    <section class="page-header">
+        <div class="overly"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="content text-center">
+                <h1 class="mb-3">Dashboard</h1>
+    
+    
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb bg-transparent justify-content-center">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
+    <section class="user-dashboard page-wrapper">
+        <div class="container">
+            <div class="row">
+                @include('frontend.inc.customer_side_nav')
+
+                <div class="col-lg-9 col-md-12 col-12 mt-lg-0 mt-3">
+                    <div class="row box-shadows">
+                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
+                        <div class="dashboard-widget text-center green-widget c-pointer">
+                        <a href="javascript:;" class="d-block">
+                            <i class="fa fa-upload"></i>
+                            @if (Session::has('cart'))
+                                <span class="d-block  heading-3 strong-400">{{ count(Session::get('cart')) }} </span>
+                                <span class="d-block sub-title">Total Products in Cart</span>
+                            @else
+                                <span class="d-block  heading-3 strong-400">0</span>
+                                <span class="d-block sub-title">Total Products in Cart</span>
+
+                            @endif
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
+                        <div class="dashboard-widget text-center red-widget c-pointer">
+                        <a href="javascript:;" class="d-block">
+                            <i class="fa fa-heart"></i>
+                            <span class="d-block  heading-3 strong-400">{{ count(Auth::user()->wishlists) }}</span>
+                            <span class="d-block sub-title">Total Wishlists</span>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
+                        <div class="dashboard-widget text-center blue-widget c-pointer">
+                        <a href="javascript:;" class="d-block">
+                            <i class="fa fa-dollar"></i>
+                            <span class="d-block  heading-3 strong-400">Rs810.00</span>
+                            <span class="d-block sub-title">Total earnings</span>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
+                        <div class="dashboard-widget text-center yellow-widget c-pointer">
+                            @php
+                                $orders = \App\Order::where('user_id', Auth::user()->id)->get();
+                                $total = 0;
+                                foreach ($orders as $key => $order) {
+                                    $total += count($order->orderDetails);
+                                }
+                            @endphp
+                        <a href="javascript:;" class="d-block">
+                            <i class="fa fa-check-square-o"></i>
+                            <span class="d-block  heading-3 strong-400">{{$total}}</span>
+                            <span class="d-block sub-title">Total Orders</span>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row bg-light">
+                    <div class="col-lg-7 col-12">
+                        <div class="form-box bg-white my-4">
+                        <div class="form-box-title px-3 py-2 text-center">
+                            Orders
+                        </div>
+                        <div class="form-box-content p-3">
+                            <table class="table mb-0 table-bordered" style="font-size:14px;">
+                            <tbody>
+                                <tr>
+                                <td>Total orders:</td>
+                                <td><strong class="heading-6">7</strong></td>
+                                </tr>
+                                <tr>
+                                <td>Pending orders:</td>
+                                <td><strong class="heading-6">6</strong></td>
+                                </tr>
+                                <tr>
+                                <td>Cancelled orders:</td>
+                                <td><strong class="heading-6">0</strong></td>
+                                </tr>
+                                <tr>
+                                <td>Successful orders:</td>
+                                <td><strong class="heading-6">1</strong></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
 @endsection
