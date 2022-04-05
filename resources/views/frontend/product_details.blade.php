@@ -337,7 +337,7 @@
                                     </div>
                                 </div>
                                 @endif
-                            {{-- @endifs --}}
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>

@@ -1,16 +1,28 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="gry-bg py-4 profile">
-        <div class="container">
-            <div class="row cols-xs-space cols-sm-space cols-md-space">
-                <div class="col-lg-3 d-none d-lg-block">
-                    @if(Auth::user()->user_type == 'seller')
-                        @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer')
-                        @include('frontend.inc.customer_side_nav')
-                    @endif
-                </div>
+<section class="page-header">
+    <div class="overly"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="content text-center">
+            <h1 class="mb-3">Ticket</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent justify-content-center">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('support_ticket.index')}}">Show Ticket</a> </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <section class="user-dashboard page-wrapper">
+    <div class="container">
+        <div class="row">
+            @include('frontend.inc.customer_side_nav')
 
                 <div class="col-lg-9">
                     <div class="main-content">
@@ -53,7 +65,11 @@
                                                             
                                                             
                                                             @if($ticketreply->user->avatar_original === null)
-                                                                <img src="{{ asset($ticketreply->user->avatar_original) }}" class="rounded-circle">
+                                                                @if (file_exists($ticketreply->user->avatar_original))
+                                                                    <img src="{{ asset($ticketreply->user->avatar_original) }}" class="rounded-circle">
+                                                                @else
+                                                                    <img src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
+                                                                @endif
                                                             @else
                                                                 <img src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
                                                             @endif
@@ -97,7 +113,16 @@
                                                 <div class="d-flex">
                                                     <div class="pr-3">
                                                         <div class="block-image d-block size-40" data-toggle="tooltip" data-title="{{ $ticketreply->user->name }}">
-                                                            <img loading="lazy"  src="{{ asset($ticketreply->user->avatar_original) }}" class="rounded-circle" data-toggle="tooltip" data-title="fsdfsf">
+                                                            @if($ticketreply->user->avatar_original === null)
+                                                                @if (file_exists($ticketreply->user->avatar_original))
+                                                                    <img loading="lazy" src="{{ asset($ticketreply->user->avatar_original) }}" class="rounded-circle">
+                                                                @else
+                                                                    <img loading="lazy" src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
+                                                                @endif
+                                                            @else
+                                                                <img loading="lazy" src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
+                                                            @endif
+                                                            {{-- <img loading="lazy"  src="{{ asset($ticketreply->user->avatar_original) }}" class="rounded-circle" data-toggle="tooltip" data-title="fsdfsf"> --}}
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 mr-5 pr-5">
@@ -139,7 +164,16 @@
                                         <div class="d-flex flex-row-reverse">
                                             <div class="pl-3">
                                                 <div class="block-image d-block size-40">
-                                                    <img loading="lazy"  src="{{ asset($ticket->user->avatar_original) }}" class="rounded-circle">
+                                                    @if($ticket->user->avatar_original === null)
+                                                        @if (file_exists($ticket->user->avatar_original))
+                                                            <img loading="lazy" src="{{ asset($ticket->user->avatar_original) }}" class="rounded-circle">
+                                                        @else
+                                                            <img loading="lazy" src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
+                                                        @endif
+                                                    @else
+                                                        <img loading="lazy" src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
+                                                    @endif
+                                                    {{-- <img loading="lazy"  src="{{ asset($ticket->user->avatar_original) }}" class="rounded-circle"> --}}
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 ml-5 pl-5">

@@ -266,26 +266,21 @@
         <div class="container">
             <div class="row">
                 @include('frontend.inc.customer_side_nav')
-
+                @php
+                    $orders = \App\Order::where('user_id', Auth::user()->id)->get();
+                    $total = 0;
+                    $success=0;
+                    $pending=0;
+                    foreach ($orders as $key => $order) {
+                        $total += count($order->orderDetails);
+                        $success += count($order->orderDetails->where('delivery_status','delivered'));
+                        $pending += count($order->orderDetails->where('delivery_status','pending'));
+                    }
+                @endphp
                 <div class="col-lg-9 col-md-12 col-12 mt-lg-0 mt-3">
                     <div class="row box-shadows">
                     <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
                         <div class="dashboard-widget text-center green-widget c-pointer">
-                        <a href="javascript:;" class="d-block">
-                            <i class="fa fa-upload"></i>
-                            @if (Session::has('cart'))
-                                <span class="d-block  heading-3 strong-400">{{ count(Session::get('cart')) }} </span>
-                                <span class="d-block sub-title">Total Products in Cart</span>
-                            @else
-                                <span class="d-block  heading-3 strong-400">0</span>
-                                <span class="d-block sub-title">Total Products in Cart</span>
-
-                            @endif
-                        </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
-                        <div class="dashboard-widget text-center red-widget c-pointer">
                         <a href="javascript:;" class="d-block">
                             <i class="fa fa-heart"></i>
                             <span class="d-block  heading-3 strong-400">{{ count(Auth::user()->wishlists) }}</span>
@@ -294,27 +289,30 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
+                        <div class="dashboard-widget text-center red-widget c-pointer">
+                        <a href="javascript:;" class="d-block">
+                            <i class="fa fa-heart"></i>
+                            <span class="d-block  heading-3 strong-400">{{ $total }}</span>
+                            <span class="d-block sub-title">Total orders</span>
+                        </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
                         <div class="dashboard-widget text-center blue-widget c-pointer">
                         <a href="javascript:;" class="d-block">
-                            <i class="fa fa-dollar"></i>
-                            <span class="d-block  heading-3 strong-400">Rs810.00</span>
-                            <span class="d-block sub-title">Total earnings</span>
+                            <i class="fa fa-file"></i>
+                            <span class="d-block  heading-3 strong-400">{{$success}}</span>
+                            <span class="d-block sub-title">Successful Orders</span>
                         </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-6 mb-lg-0 md-md-2 mb-2">
                         <div class="dashboard-widget text-center yellow-widget c-pointer">
-                            @php
-                                $orders = \App\Order::where('user_id', Auth::user()->id)->get();
-                                $total = 0;
-                                foreach ($orders as $key => $order) {
-                                    $total += count($order->orderDetails);
-                                }
-                            @endphp
                         <a href="javascript:;" class="d-block">
                             <i class="fa fa-check-square-o"></i>
-                            <span class="d-block  heading-3 strong-400">{{$total}}</span>
-                            <span class="d-block sub-title">Total Orders</span>
+                            <span class="d-block  heading-3 strong-400">{{$pending}}</span>
+                            <span class="d-block sub-title">Pending Orders</span>
                         </a>
                         </div>
                     </div>
@@ -330,19 +328,16 @@
                             <tbody>
                                 <tr>
                                 <td>Total orders:</td>
-                                <td><strong class="heading-6">7</strong></td>
+                                <td><strong class="heading-6">{{$total}}</strong></td>
                                 </tr>
                                 <tr>
                                 <td>Pending orders:</td>
-                                <td><strong class="heading-6">6</strong></td>
+                                <td><strong class="heading-6">{{$pending}}</strong></td>
                                 </tr>
                                 <tr>
-                                <td>Cancelled orders:</td>
-                                <td><strong class="heading-6">0</strong></td>
-                                </tr>
-                                <tr>
+
                                 <td>Successful orders:</td>
-                                <td><strong class="heading-6">1</strong></td>
+                                <td><strong class="heading-6">{{$success}}</strong></td>
                                 </tr>
                             </tbody>
                             </table>

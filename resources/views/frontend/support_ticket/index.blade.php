@@ -1,104 +1,99 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<section class="gry-bg py-4 profile">
+<section class="page-header">
+    <div class="overly"></div>
     <div class="container">
-        <div class="row cols-xs-space cols-sm-space cols-md-space">
-            <div class="col-lg-3 d-none d-lg-block">
-                @if(Auth::user()->user_type == 'seller')
-                    @include('frontend.inc.seller_side_nav')
-                @elseif(Auth::user()->user_type == 'customer')
-                    @include('frontend.inc.customer_side_nav')
-                @endif
-            </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="content text-center">
+            <h1 class="mb-3">Ticket</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent justify-content-center">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('support_ticket.index')}}">Support Ticket</a> </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <section class="user-dashboard page-wrapper">
+    <div class="container">
+        <div class="row">
+            @include('frontend.inc.customer_side_nav')
 
-            <div class="col-lg-9">
-                <div class="main-content">
-                    <!-- Page title -->
-                    <div class="page-title">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                    {{__('Support Ticket')}}
-                                </h2>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="float-md-right">
-                                    <ul class="breadcrumb">
-                                        <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                                        <li><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
-                                        <li><a href="{{ route('support_ticket.index') }}">{{__('Support Ticket')}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+            <div class="col-lg-9 col-md-12 col-12 mt-lg-0 mt-3">
+                <div class="main-content dashboard-content">
+                    <div class="row">
+                    <div class="col-md-4 offset-md-4">
+                        <div class="dashboard-widget text-center plus-widget mt-4 c-pointer" data-toggle="modal"
+                        data-target="#ticket_modal">
+                        <i class="fa fa-plus"></i>
+                        <span class="d-block heading-6 strong-400 c-base-1">Create a Ticket</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 offset-md-4">
-                            <div class="dashboard-widget text-center plus-widget mt-4 c-pointer" data-toggle="modal" data-target="#ticket_modal">
-                                <i class="la la-plus"></i>
-                                <span class="d-block title heading-6 strong-400 c-base-1">{{ __('Create a Ticket') }}</span>
-                            </div>
-                        </div>
                     </div>
                     <div class="card no-border mt-4 table-responsive">
-                        <table class="table table-sm table-hover ">
-                            <thead>
+                    <table class="table table-sm table-hover m-0">
+                        <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Sending Date</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @if(count($tickets) > 0)
+                                @foreach ($tickets as $key => $ticket)
                                 <tr>
-                                    <th>{{ __('Ticket ID') }}</th>
-                                    <th>{{ __('Sending Date') }}</th>
-                                    <th>{{__('Subject')}}</th>
-                                    <th>{{__('Status')}}</th>
-                                    <th>{{__('Options')}}</th>
+                                    <td>#{{ $ticket->code }}</td>
+                                    <td>{{ $ticket->created_at }}</td>
+                                    <td>{{ $ticket->subject }}</td>
+                                    <td>
+                                    @if ($ticket->status == 'pending')
+                                        <span class="badge badge-pill badge-danger">Pending</span>
+                                    @elseif ($ticket->status == 'open')
+                                        <span class="badge badge-pill badge-secondary">Open</span>
+                                    @else
+                                        <span class="badge badge-pill badge-success">Solved</span>
+                                    @endif
+                                    </td>
+                                    <td>
+                                    <a href="{{route('support_ticket.show', encrypt($ticket->id))}}"
+                                        class="btn">
+                                        View Details
+                                        <i class="fa fa-angle-right text-sm"></i>
+                                    </a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @if(count($tickets) > 0)
-                                    @foreach ($tickets as $key => $ticket)
-                                        <tr>
-                                            <td>#{{ $ticket->code }}</td>
-                                            <td>{{ $ticket->created_at }}</td>
-                                            <td>{{ $ticket->subject }}</td>
-                                            <td>
-                                                @if ($ticket->status == 'pending')
-                                                    <span class="badge badge-pill badge-danger">Pending</span>
-                                                @elseif ($ticket->status == 'open')
-                                                    <span class="badge badge-pill badge-secondary">Open</span>
-                                                @else
-                                                    <span class="badge badge-pill badge-success">Solved</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{route('support_ticket.show', encrypt($ticket->id))}}" class="btn btn-styled btn-link py-1 px-0 icon-anim text-underline--none">
-                                                    {{__('View Details')}}
-                                                    <i class="la la-angle-right text-sm"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="text-center pt-5 h4" colspan="100%">
-                                            <i class="la la-meh-o d-block heading-1 alpha-5"></i>
-                                            <span class="d-block">{{ __('No history found.') }}</span>
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td class="text-center pt-5 h4" colspan="100%">
+                                        <i class="la la-meh-o d-block heading-1 alpha-5"></i>
+                                        <span class="d-block">{{ __('No history found.') }}</span>
+                                    </td>
+                                </tr>
+                            @endif
+
+                        </tbody>
+                    </table>
                     </div>
-                    <div class="pagination-wrapper py-4">
-                        <ul class="pagination justify-content-end">
-                            {{ $tickets->links() }}
-                        </ul>
-                    </div>
+                    <!-- <div class="pagination-wrapper py-4">
+                    <ul class="pagination justify-content-end">
+                    </ul>
+                    </div> -->
                 </div>
             </div>
 
 
         </div>
     </div>
-</section>
+    </section>
 
 <div class="modal fade" id="ticket_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
