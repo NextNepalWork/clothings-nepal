@@ -358,7 +358,7 @@
                                 @else
                                 <p>You need to buy product to give review.</p>
                                 @endif
-                            {{-- @endif --}}
+                            @endif
                         </div>
                     </div>
                 </div>
