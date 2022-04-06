@@ -118,8 +118,10 @@
                         <i class="tf-ion-android-cart"></i>
 
                         @if(Session::has('cart'))
+                        {{-- <sub class="sub_block">{{ count(Session::get('cart'))}}</sub> --}}
                         <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
                         @else
+                        {{-- <sub class="sub_block">0</sub> --}}
                         <sup class="nav-box-number">0</sup>
                         @endif
                     </a>
@@ -193,10 +195,10 @@
                     <li style="width:100%"><a href="{{ route('user.login') }}">{{__('Login')}}</a></li>
                     <li style="width:100%"><a href="{{ route('user.registration') }}">{{__('Registration')}}</a></li>
                     <li style="width:100%"><a href="{{ route('password.request') }}">{{__('Forgot Password')}}</a></li>
+                    @endauth
                     <li style="width:100%">
                         <a href="{{ route('orders.track') }}">{{__('Track Order')}}</a>
                     </li>
-                    @endauth
                 </ul>
             </li>
         </ul>
