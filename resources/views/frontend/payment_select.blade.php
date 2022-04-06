@@ -277,13 +277,13 @@
                                                         @endforeach
                                                     @endif
                                                 @endif
-                                                @if((\App\BusinessSetting::where('type', 'khalti_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti_payment')->first()->value == 1))
+                                                @if((\App\BusinessSetting::where('type', 'esewa_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'esewa_payment')->first()->value == 1))
                                                     <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
-                                                            {{-- <button id="payment-button">Pay with Khalti</button> --}}
-                                                            <input type="radio" id="" name="payment_option" value="khalti">
+                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="esewa">
+                                                            {{-- <button id="payment-button">Pay with esewa</button> --}}
+                                                            <input type="radio" id="" name="payment_option" value="esewa">
                                                             <span>
-                                                                <img loading="lazy" src="{{ asset('frontend/images/icons/cards/khalti.png')}}" class="img-fluid">
+                                                                <img loading="lazy" src="{{ asset('frontend/images/icons/cards/esewa.jpg')}}" class="img-fluid">
                                                             </span>
                                                         </label>
                                                     </div>

@@ -171,6 +171,10 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::post('/wallet_payment_done_khalti', 'WalletController@wallet_payment_done_khalti')->name('wallet_payment_done_khalti');
 	Route::post('/checkout_done_khalti', 'CheckoutController@checkout_done_khalti')->name('checkout_done_khalti');
 	
+	//Esewa
+	Route::get('page/esewa_payment_success','EsewaController@success');
+	Route::get('page/esewa_payment_failed','EsewaController@fail');
+
 	Route::resource('support_ticket','SupportTicketController');
 	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');
 

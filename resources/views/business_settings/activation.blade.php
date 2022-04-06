@@ -71,20 +71,20 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading text-center bord-btm">
-                <h3 class="panel-title">{{__('Khalti Payment Activation')}}</h3>
+                <h3 class="panel-title">{{__('Esewa Payment Activation')}}</h3>
             </div>
             <div class="panel-body">
                 <div class="clearfix">
                     <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/khalti.png') }}" height="30">
                     <label class="switch pull-right">
-                        <input type="checkbox" onchange="updateSettings(this, 'khalti_payment')" @if(\App\BusinessSetting::where('type', 'khalti_payment')->first()) {{\App\BusinessSetting::where('type', 'khalti_payment')->first()->value==1}} checked @endif>
+                        <input type="checkbox" onchange="updateSettings(this, 'esewa_payment')" @if(\App\BusinessSetting::where('type', 'esewa_payment')->first()) {{\App\BusinessSetting::where('type', 'esewa_payment')->first()->value==1}} checked @endif>
 
                         {{-- <input type="checkbox" onchange="updateSettings(this, 'khalti_payment')" @php if(\App\BusinessSetting::where('type', 'khalti_payment')->first()->value == 1) echo "checked"; @endphp> --}}
                         <span class="slider round"></span>
                     </label>
                 </div>
                 <div class="alert text-center" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
-                    You need to configure Khalti correctly to enable this feature. <a href="{{ route('payment_method.index') }}">Configure Now</a>
+                    You need to configure Esewa correctly to enable this feature. <a href="{{ route('payment_method.index') }}">Configure Now</a>
                 </div>
             </div>
         </div>
