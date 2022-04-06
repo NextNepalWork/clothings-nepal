@@ -55,12 +55,12 @@ class BusinessSettingsController extends Controller
      */
     public function payment_method_update(Request $request)
     {
-        if(BusinessSetting::where('type','khalti_payment')->exists()){
-            $khalti=BusinessSetting::where('type','khalti_payment')->first();
+        if(BusinessSetting::where('type','esewa_payment')->exists()){
+            $esewa=BusinessSetting::where('type','esewa_payment')->first();
         }else{
-            $khalti=new BusinessSetting();
+            $esewa=new BusinessSetting();
         }
-        $khalti->type=$request->payment_method;
+        $esewa->type=$request->payment_method;
 
         // $data = [
         //     'value' => 1,
@@ -70,10 +70,10 @@ class BusinessSettingsController extends Controller
 
         // $khalti->value=json_encode($data);
         
-        $khalti->value=1;
-        $khalti->khalti_key=$request->KHALTI_KEY;
-        $khalti->khalti_secret=$request->KHALTI_SECRET;
-        $khalti->save();
+        $esewa->value=1;
+        $esewa->esewa_key=$request->ESEWA_KEY;
+        $esewa->esewa_secret=$request->ESEWA_SECRET;
+        $esewa->save();
     
         // foreach ($request->types as $key => $type) {
         //     $this->overWriteEnvFile($type, $request[$type]);

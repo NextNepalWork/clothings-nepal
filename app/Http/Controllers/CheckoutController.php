@@ -51,6 +51,10 @@ class CheckoutController extends Controller
                     $khalti = new KhaltiController;
                     return $khalti->khalti();
                 }
+                elseif($request->payment_option == 'esewa'){
+                    $esewa = new EsewaController;
+                    return $esewa->esewa();
+                }
                 // elseif ($request->payment_option == 'stripe') {
                 //     $stripe = new StripePaymentController;
                 //     return $stripe->stripe();

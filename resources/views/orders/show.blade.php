@@ -223,12 +223,26 @@
     					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>
     			</tr>
+				@if ($order->coupon_discount)
+					
+				
+				<tr>
+    				<td>
+    					<strong>{{__('Coupon Discount')}} :</strong>
+    				</td>
+    				<td>
+    					{{ single_price($order->coupon_discount) }}
+
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
+    				</td>
+    			</tr>
+				@endif
     			<tr>
     				<td>
     					<strong>{{__('TOTAL')}} :</strong>
     				</td>
     				<td class="text-bold h4">
-    					{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax') + $order->orderDetails->sum('shipping_cost')) }}
+    					{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax') + $order->orderDetails->sum('shipping_cost')-$order->coupon_discount) }}
 
     					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>
