@@ -75,7 +75,7 @@
             </div>
             <div class="panel-body">
                 <div class="clearfix">
-                    <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/khalti.png') }}" height="30">
+                    <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/esewa.jpg') }}" height="30">
                     <label class="switch pull-right">
                         <input type="checkbox" onchange="updateSettings(this, 'esewa_payment')" @if(\App\BusinessSetting::where('type', 'esewa_payment')->first()) {{\App\BusinessSetting::where('type', 'esewa_payment')->first()->value==1}} checked @endif>
 

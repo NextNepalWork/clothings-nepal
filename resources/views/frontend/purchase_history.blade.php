@@ -53,18 +53,30 @@
                                     <table class="table table-sm table-hover">
                                         <thead>
                                             <tr>
+                                                <th>{{__('Options')}}</th>
                                                 <th>{{__('Code')}}</th>
                                                 <th>{{__('Date')}}</th>
                                                 <th>{{__('Amount')}}</th>
                                                 <th>{{__('Delivery Status')}}</th>
                                                 <th>{{__('Payment Status')}}</th>
-                                                <th>{{__('Options')}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($orders as $key => $order)
                                                 @if (count($order->orderDetails) > 0)
                                                     <tr>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn" type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-ellipsis-v"></i>
+                                                                </button>
+
+                                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
+                                                                    <button onclick="show_purchase_history_details({{ $order->id }})" class="dropdown-item">{{__('Order Details')}}</button>
+                                                                    <a href="{{ route('customer.invoice.download', $order->id) }}" class="dropdown-item">{{__('Download Invoice')}}</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                         <td>
                                                             <a href="#{{ $order->code }}" onclick="show_purchase_history_details({{ $order->id }})">{{ $order->code }}</a>
                                                         </td>
@@ -90,18 +102,7 @@
                                                                 @endif
                                                             </span>
                                                         </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button class="btn" type="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </button>
 
-                                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
-                                                                    <button onclick="show_purchase_history_details({{ $order->id }})" class="dropdown-item">{{__('Order Details')}}</button>
-                                                                    <a href="{{ route('customer.invoice.download', $order->id) }}" class="dropdown-item">{{__('Download Invoice')}}</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 @endif
                                             @endforeach
